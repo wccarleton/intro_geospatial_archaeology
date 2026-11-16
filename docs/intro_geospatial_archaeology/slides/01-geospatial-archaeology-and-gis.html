@@ -33,7 +33,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-569a669264329a14cb6cb0039c942f29.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-4e1cd66b01b7b9cfb640bf8bcfcb616c.css">
   <link rel="stylesheet" href="../assets/fonts/fonts.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -126,6 +126,9 @@
       margin-right: 0; 
     }
   </style>
+  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body class="quarto-light">
@@ -143,8 +146,12 @@
 <p><strong>Why are archaeological things where they are?</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../assets/placeholders/image.svg" class="img-card quarto-figure quarto-figure-center" style="width:75.0%" alt="PLACEHOLDER: archaeological landscape with mapped features"></p>
+<p><img data-src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Angkor_Wat_aerial_view.jpg" class="img-card" style="width:75.0%"></p>
+<figcaption>Aerial view of Angkor Wat</figcaption>
 </figure>
+</div>
+<div class="caption">
+<p>Aerial photograph: Steve Jurvetson, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>.</p>
 </div>
 <aside class="notes">
 <p>~2 min. Begin with a landscape or Angkor map. Ask what we can learn from the positions and spatial relationships of material traces. The goal is not simply making maps.</p>
@@ -162,12 +169,13 @@
 </section>
 <section id="from-maps-to-explanations" class="slide level2">
 <h2>From maps to explanations</h2>
-<ul>
-<li><strong>Map:</strong> Where are things?</li>
-<li><strong>Measure:</strong> How far apart, how dense, how connected?</li>
-<li><strong>Analyze:</strong> Is a pattern different from what we might expect?</li>
-<li><strong>Model:</strong> What processes could generate the pattern?</li>
-</ul>
+<div class="center-block">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/map_measure_analyze_model.webp" class="quarto-figure quarto-figure-center" style="width:95.0%"></p>
+</figure>
+</div>
+</div>
 <div class="callout-card">
 <p><strong>GIS is a framework for representing, manipulating, and analysing geographically referenced information.</strong></p>
 </div>
@@ -185,23 +193,43 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="spatial-data" class="slide level2 section-slide" data-background-image="../assets/branding/section_bg.png" data-background-size="cover" data-background-position="center">
-<h2>SPATIAL DATA</h2>
-</section>
-<section id="two-fundamental-representations" class="slide level2">
-<h2>Two fundamental representations</h2>
+<section id="spatial-thinking-in-early-london" class="slide level2">
+<h2>Spatial Thinking in Early London</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><strong>Vector</strong></p>
-<p><img data-src="../assets/placeholders/image.svg" class="img-card nostretch" style="width:95.0%" alt="PLACEHOLDER: points, lines and polygons"></p>
-<p>Discrete geometries: <strong>points, lines, polygons</strong></p>
-</div><div class="column" style="width:50%;">
-<p><strong>Raster</strong></p>
-<p><img data-src="../assets/placeholders/image.svg" class="img-card nostretch" style="width:95.0%" alt="PLACEHOLDER: grid cells or DEM"></p>
-<p>Regular grid of <strong>cells with values</strong></p>
+<p><strong>John Snow: cholera in Soho, 1854</strong></p>
+<ul>
+<li>Mapped <strong>cholera deaths</strong> alongside <strong>public water pumps</strong>.</li>
+<li>Recognised a concentration of deaths around the <strong>Broad Street pump</strong>.</li>
+<li>Investigated <strong>where people obtained their water</strong>, including cases that did not fit a simple proximity pattern.</li>
+<li>Combined spatial patterns and household evidence to argue for <strong>waterborne transmission</strong>.</li>
+</ul>
+</div><div class="column h-center" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/Snow-cholera-map-1.jpg/1280px-Snow-cholera-map-1.jpg" class="img-card" alt="Historical street map of Soho, with stacks of black bars marking deaths and labelled public water pumps; deaths concentrate around Broad Street." height="560"></p>
+<figcaption>John Snow’s map of cholera deaths around Broad Street, Soho. Outbreak: 1854; published: 1855.</figcaption>
+</figure>
+</div>
+<div class="reference">
+<p><a href="https://commons.wikimedia.org/wiki/File:Snow-cholera-map-1.jpg">Image: John Snow, via Wikimedia Commons</a> · Public domain.</p>
+</div>
 </div></div>
+<div class="callout-card">
+<p><strong>Locations + relationships + contextual evidence → an explanation to investigate.</strong></p>
+</div>
+<div class="reference">
+<p><a href="https://epi-snow.ph.ucla.edu/Stream2_BSPoutbreak_a.html">Snow’s 1855 account and map, via UCLA</a></p>
+</div>
 <aside class="notes">
-<p>~3 min. A site point, river line, and survey polygon versus an elevation grid or satellite image. A raster can also encode categories; it need not represent a continuous variable.</p>
+<p>~2–3 min. Suggested story:</p>
+<p><strong>Setting.</strong> London, late summer 1854. Cholera caused a sudden, deadly outbreak in Soho around Broad Street, now Broadwick Street. John Snow was a physician and anaesthetist who favoured waterborne transmission over the widely held explanation of miasma, or unhealthy air. He approached the outbreak with a hypothesis already in mind.</p>
+<p><strong>Investigation.</strong> Snow obtained registered death addresses and questioned households about drinking water. Many deaths occurred near the Broad Street pump, but proximity alone was insufficient: people could choose a more distant pump or have water brought to them. In his account, several people who lived nearer other pumps nevertheless preferred Broad Street water.</p>
+<p><strong>The memorable exceptions.</strong> A woman living in Hampstead had Broad Street water delivered because she liked its taste; she and a visiting niece who drank it died. Conversely, the nearby workhouse had its own water supply and relatively few deaths. Brewery workers also largely avoided the pump water. These contrasts helped distinguish actual exposure from merely living nearby. Choose one example to tell aloud.</p>
+<p><strong>Action and limits.</strong> Snow brought his findings to the parish authorities on 7 September; the handle was removed on 8 September. The outbreak was already declining, and many residents had fled. Do not say that removing the handle instantly stopped the epidemic or that the map alone proved causation. His explanation did not immediately win general acceptance.</p>
+<p><strong>How to read this image.</strong> The black marks are bars representing deaths at addresses, not dots representing infections. Locate Broad Street and its pump, then indicate the surrounding stacks of bars. Snow first presented a map publicly in December 1854; this version appeared in the second edition of On the Mode of Communication of Cholera in 1855. It communicates evidence assembled through investigation, rather than recording a single moment of discovery. Snow also studied differences in mortality between households supplied by different water companies elsewhere in London: his argument extended beyond this one neighbourhood.</p>
+<p><strong>Teaching link.</strong> Ask: would assigning every household to its nearest pump recover actual water use? Bring this back to archaeology: a settlement near a river is a spatial observation; explaining that relationship requires evidence about behaviour and historical conditions.</p>
+<p>Sources for retelling: <a href="https://epi-snow.ph.ucla.edu/Stream2_BSPoutbreak_a.html">Snow’s 1855 account, pp.&nbsp;38–55</a>; <a href="https://epi-snow.ph.ucla.edu/Stream2_BSPoutbreak_f.html">UCLA on the map’s chronology and later retellings</a>; <a href="https://www.cdc.gov/mmwr/preview/mmwrhtml/mm5334a1.htm">CDC historical summary</a>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -214,21 +242,238 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="geometry-is-a-representation" class="slide level2">
-<h2>Geometry is a representation</h2>
+<section id="brief-history-of-gis-in-archaeology" class="slide level2">
+<h2>Brief History of GIS in Archaeology</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><strong>Changing ways of thinking about space</strong></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Rough period</th>
+<th style="text-align: left;">Main emphasis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Before the 1940s</strong></td>
+<td style="text-align: left;">Map sites and artefact distributions; trace cultural regions and connections.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>1940s–1950s</strong></td>
+<td style="text-align: left;"><strong>Regional settlement patterns:</strong> Gordon Willey’s Virú Valley survey, Peru (1946; published 1953), relates settlements to environment and social organisation.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>1960s–1970s</strong></td>
+<td style="text-align: left;"><strong>Quantitative spatial analysis:</strong> measure clustering, catchments, and relationships between sites.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>1980s–present</strong></td>
+<td style="text-align: left;"><strong>Digital GIS:</strong> integrate layers and model landscapes, movement, and visibility; debate how space was experienced and understood.</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column h-center" style="width:45%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/willey_viruvalley_huancaco_period_p179.webp" class="img-card" alt="Willey's Huancaco-period site distribution map: site symbols across the Virú Valley alongside the river and surrounding terrain." height="600"></p>
+<figcaption>Huancaco-period sites in the Virú Valley, Peru. Willey (1953), p.&nbsp;179, fig.&nbsp;36.</figcaption>
+</figure>
+</div>
+<p><strong>Gordon Willey: the region as a unit of study</strong></p>
+</div></div>
+<div class="reference">
+<p><a href="https://repository.si.edu/bitstream/handle/10088/15450/bulletin1551953smit.pdf?sequence=1&amp;isAllowed=y">Willey, 1953</a> · <a href="https://www.cambridge.org/core/books/abs/geographical-information-systems-in-archaeology/spatial-analysis/58F8744ECB511B22CBE7B5CA26440F93">Conolly &amp; Lake, spatial analysis</a> · <a href="https://student-journals.ucl.ac.uk/pia/article/id/212/">Hu, landscape archaeology and GIS</a></p>
+</div>
+<aside class="notes">
+<p>~2 min. These are overlapping trends, not a universal sequence in which each approach replaced the last. Spatial thinking predates digital GIS. Willey’s 1946 fieldwork and 1953 monograph, Prehistoric Settlement Patterns in the Virú Valley, Perú, are a landmark rather than the invention of regional survey: settlement locations, forms, and relationships could illuminate whole societies. Quantitative methods grew with processual archaeology; later landscape approaches also asked about perception, meaning, and lived experience. The final row compresses several decades of parallel developments.</p>
+<p>The image is Willey’s figure 36, “Site distribution map of the Huancaco Period” (p.&nbsp;179). Point out the site symbols, river, and terrain: the object of study is a regional arrangement of sites in a landscape. This is a period-specific distribution, rather than a map of every site from every period. Comparing such distributions makes changes in settlement organisation an archaeological question. A shared period assignment does not establish that every mapped site was occupied at exactly the same time. Ask: what might we learn from the relationships between sites that we could not learn by excavating just one?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-virú-valley-sites-in-a-landscape" class="slide level2">
+<h2>The Virú Valley: sites in a landscape</h2>
+<div class="center-block">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/willey_viruvalley_googleearth.webp" class="img-card" alt="Oblique Google Earth view of the Virú Valley, with the Pacific coast to the left, cultivated land across the valley floor, and dry hills rising inland." height="620"></p>
+<figcaption>The Virú Valley, Peru: a modern view of the coastal plain and surrounding hills. Source: Google Earth.</figcaption>
+</figure>
+</div>
+</div>
+<p><strong>How might terrain and access to water shape the distribution of settlements?</strong></p>
+<aside class="notes">
+<p>~1 min. Return briefly to Willey’s question of regional settlement patterns. Point out the Pacific coast, the broad cultivated valley floor, and the hills enclosing and dividing the landscape. Ask students to connect this view with the site distribution on the previous slide: where might farming, routes, and settlement have been possible, and what evidence would we need to explain particular locations?</p>
+<p>This is a modern Google Earth view, not a reconstruction of the Huancaco-period landscape. The visible fields, roads, and land use should not be projected unchanged into the past. Use the image to orient students to the terrain; Willey’s period-specific map provides a different kind of evidence. The blue outline is a display overlay, not an established ancient boundary. The views have different orientations and perspectives, so do not imply an exact visual overlay of the two images.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="spatial-data" class="slide level2 section-slide" data-background-image="../assets/branding/section_bg.png" data-background-size="cover" data-background-position="center">
+<h2>SPATIAL DATA</h2>
+</section>
+<section id="two-fundamental-representations" class="slide level2">
+<h2>Two fundamental representations</h2>
+<div class="center-block">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/two_representations_graphic.webp" class="quarto-figure quarto-figure-center" alt="An archaeological landscape represented as a raster grid of terrain values and as vector features for sites, roads, and waterways." height="740"></p>
+</figure>
+</div>
+</div>
+<aside class="notes">
+<p>~1 min. Read the graphic from the landscape at the bottom to the two representations above. Raster divides space into cells with values; vector represents selected features with geometries. These are alternative ways of representing the same landscape and can be used together. The raised raster blocks illustrate elevation values, not literal cubes stored in a typical elevation raster. Preview the next two slides: first the grid, then the objects.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="raster-a-grid-of-values" class="slide level2">
+<h2>Raster: a grid of values</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
 <ul>
-<li>A <strong>point</strong> may represent an entire settlement.</li>
-<li>A <strong>line</strong> may represent a road of variable width.</li>
-<li>A <strong>polygon</strong> may represent an uncertain site boundary.</li>
-<li>A <strong>cell</strong> summarizes a geographic area at a chosen resolution.</li>
+<li>Space is divided into <strong>rows and columns of cells</strong>.</li>
+<li>Each cell stores a <strong>value per band</strong>: elevation, reflectance, or a land-cover code.</li>
+<li><strong>Cell size</strong> determines the spatial resolution.</li>
+<li><strong>NoData</strong> marks missing or undefined values.</li>
+</ul>
+<p><strong>Archaeological uses:</strong> terrain models, satellite imagery, and geophysical survey grids.</p>
+</div><div class="column h-center" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/raster_examples.webp" class="quarto-figure quarto-figure-center" style="width:100.0%" alt="Three illustrative three-by-three raster grids showing elevation values, slope angles, and aspect directions."></p>
+</figure>
+</div>
+</div></div>
+<div class="callout-card">
+<p><strong>A cell value represents an area at a chosen resolution. Zooming in does not add detail.</strong></p>
+</div>
+<aside class="notes">
+<p>~2 min. The graphic shows illustrative elevation, slope, and aspect grids. Point to one cell: its position comes from the grid’s geographic reference, while its value depends on the variable represented. Elevation describes height relative to a reference surface; slope describes steepness; aspect describes the direction a slope faces, commonly measured clockwise from north. Slope and aspect can be derived from an elevation raster using neighbouring cells. Treat the numbers as schematic examples, not a verified calculation of slope and aspect from the nine elevations shown. No cell size is specified in this graphic.</p>
+<p>A raster can represent continuous quantities such as elevation or discrete classes such as land cover; raster does not mean continuous data only. A colour image commonly has several bands, such as red, green, and blue, with a value in each band for each cell. NoData is not the same as zero: zero elevation can be a valid measurement. Cell values may come from measurements, interpolation, or processing; they need not be exact averages over the cell. Finer cells do not automatically mean greater accuracy.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="raster-coordinates-and-resolution" class="slide level2">
+<h2>Raster coordinates and resolution</h2>
+<ul>
+<li><strong>Location:</strong> a CRS and the grid’s origin, orientation, and cell size locate each row and column on Earth.</li>
+<li><strong>Resolution:</strong> cell width and height in coordinate units; a <strong>10 × 10 m</strong> cell covers <strong>100 m²</strong>.</li>
+<li><strong>Extent:</strong> the geographic area covered by the whole grid.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../assets/placeholders/image.svg" class="img-card quarto-figure quarto-figure-center" style="width:65.0%" alt="PLACEHOLDER: same settlement shown as point, polygon and raster"></p>
+<p><img data-src="../assets/content/01-geospatial-archaeology/pixelsizeconcept.jpg" class="img-card" alt="A shape represented with progressively smaller raster cells, illustrating how finer resolution follows its boundary more closely." height="440"></p>
+<figcaption>Smaller cells represent finer spatial detail. Source: <a href="https://open-spatial-science.github.io/intro-gis-rs/figures/ch2/pixelsizeconcept.jpg">Open Spatial Science, Introduction to GIS and Remote Sensing</a>.</figcaption>
 </figure>
 </div>
 <aside class="notes">
-<p>~2 min. Representations simplify the world. A point does not mean the settlement has zero area. Geometry is a modelling choice.</p>
+<p>~2 min. A row and column identify a position within an array, but do not by themselves identify a geographic location. GIS uses the grid’s georeferencing together with its coordinate reference system to place the cells. We will discuss CRSs more fully later. For a simple north-up projected grid, start at its upper-left corner: moving one column advances one cell width east; moving one row advances one cell height south. The first cell centre lies half a cell width and half a cell height inside that corner. A cell’s elevation or land-cover value is separate from these location coordinates.</p>
+<p>Resolution is expressed in the CRS’s units. In a projected CRS those units may be metres; in a longitude/latitude grid they are degrees, and a degree of longitude spans different ground distances at different latitudes. Do not assume all raster cell sizes are metres or that cells must be square. For a north-up grid, columns multiplied by cell width give its total coordinate width, and rows multiplied by cell height give its height.</p>
+<p>Use the image to compare how coarser and finer grids represent the same boundary. It is a schematic illustration: the drawn grid densities are not a numerically scaled demonstration of the labelled 30 m, 10 m, and 1 m ratios. A finer grid can represent smaller details when the source data support them. Resampling a coarse raster to smaller cells does not create new observations or improve its underlying positional accuracy. Distinguish cell size, total extent, and accuracy. A large raster can cover a small area finely or a large area coarsely.</p>
+<p>Image hosted by Open Spatial Science; the caption links directly to the supplied source image. Background on resolution: <a href="https://docs.qgis.org/3.44/en/docs/gentle_gis_introduction/raster_data.html">QGIS, Raster Data</a>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="vector-features-with-geometry" class="slide level2">
+<h2>Vector: features with geometry</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li><strong>Point:</strong> a findspot or settlement location.</li>
+<li><strong>Line:</strong> a road, wall, or waterway.</li>
+<li><strong>Polygon:</strong> a building footprint or survey area.</li>
+</ul>
+<p>Coordinates define the geometry; <strong>attributes</strong> describe the feature.</p>
+<p><strong>Geometry is a modelling choice:</strong> a point may represent an entire settlement; a crisp polygon may represent an uncertain boundary.</p>
+</div><div class="column h-center" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/vector_examples.webp" class="quarto-figure quarto-figure-center" style="width:100.0%" alt="Three schematic maps illustrating vector geometry: points marking locations, lines tracing routes, and polygons enclosing areas around archaeological features."></p>
+</figure>
+</div>
+</div></div>
+<div class="callout-card">
+<p><strong>Choose a representation that fits the question, scale, and available evidence.</strong></p>
+</div>
+<aside class="notes">
+<p>~2 min. A point does not imply that a settlement has no area; it may be all that a regional inventory records. The same settlement might be represented by a point at regional scale and a polygon in a detailed survey. A line follows a road’s course but does not necessarily preserve its width. Polygon boundaries can be inferred or uncertain despite their crisp appearance. Vector can also represent contours or zones derived from continuous phenomena, so avoid equating vector exclusively with naturally bounded objects. Each feature can carry attributes such as site ID, period, or confidence: this leads directly to the next slide’s table. Raster and vector describe data structures, not levels of quality; the useful choice depends on what we want to measure.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="vector-coordinates-from-locations-to-shapes" class="slide level2">
+<h2>Vector coordinates: from locations to shapes</h2>
+<div class="center-block">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/vector_geometry.webp" class="quarto-figure quarto-figure-center" alt="Diagram of points stored as coordinate pairs, lines as ordered sequences of vertices, and polygons as closed rings, with illustrative coordinate lists." height="650"></p>
+</figure>
+</div>
+</div>
+<div class="callout-card">
+<p><strong>Coordinates define the shape; a coordinate reference system places it on Earth.</strong></p>
+</div>
+<aside class="notes">
+<p>~2 min. Start at the top: a two-dimensional point is one coordinate pair. The numbers are illustrative, with no geographic CRS specified. In a common projected x/y convention, x is easting and y is northing; coordinate order and units must be checked against the dataset’s CRS and format. Some geometries also store a z coordinate, but keep the discussion here in two dimensions.</p>
+<p>In the middle panel, each numbered vertex has a coordinate pair. The ordered sequence tells GIS which vertices to connect. Changing the order can change the path even if all the coordinates remain the same. The numbered circles mark vertices within a feature; they are not necessarily separate point features with separate attribute rows. A typical polyline joins successive vertices with straight segments, allowing a winding road to be approximated by many short segments.</p>
+<p>At the bottom, a polygon encloses an area using a closed ring. In many common encodings, the last coordinate repeats the first to close the ring. The green polygon’s list demonstrates that repetition. The orange polygon’s list shows six distinct vertices but omits the repeated starting coordinate: explain that the closing segment back to vertex 1 is required, and an explicitly closed coordinate list would append (7.0, 1.0). Treat the drawings as schematic, not as precisely scaled coordinate plots. Polygons can also contain holes or several parts, which we do not need to cover in detail here.</p>
+<p>More vertices can describe a boundary in greater detail, but do not guarantee that it was measured accurately. Contrast vector storage of explicit vertex coordinates with the raster grid’s origin, cell size, and row/column positions. Both need a spatial reference. Then move to the attributes slide: coordinates tell us where a feature is and its shape; the associated table tells us what we know about it.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -292,6 +537,86 @@
           display:block!important;
       }</style></aside>
 </section>
+<section id="conversions" class="slide level2">
+<h2>Conversions</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><strong>Vector → raster: rasterise</strong></p>
+<ul>
+<li>Assign feature attributes to grid cells.</li>
+<li>Choose <strong>cell size</strong>, grid alignment, and an assignment rule.</li>
+<li>Example: turn land-use polygons into a categorical grid.</li>
+</ul>
+<p><strong>Raster → vector: polygonise</strong></p>
+<ul>
+<li>Trace regions of connected cells with the same value.</li>
+<li>Example: turn a classified land-cover raster into polygons.</li>
+<li>Boundaries inherit the <strong>cell edges</strong>.</li>
+</ul>
+</div><div class="column h-center" style="width:55%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/raster_vector_conversion.webp" class="quarto-figure quarto-figure-center" alt="The same landscape represented as land-cover polygons and a categorical raster, with forest, grassland, agriculture, settlement, and water classes." height="620"></p>
+</figure>
+</div>
+</div></div>
+<div class="callout-card">
+<p><strong>Conversion changes the representation; it does not recover lost spatial detail.</strong></p>
+</div>
+<aside class="notes">
+<p>~2 min. Use the graphic as a conceptual comparison of two representations of the same landscape. The vector panel has smooth boundaries, but simply polygonising the raster shown would produce boundaries along the grid cells. Smooth outlines require an additional generalisation or smoothing step; they are not recovered automatically from the raster.</p>
+<p>For vector to raster, imagine assigning a land-cover category to each cell from the polygons. Cells can cross several boundaries: the result depends on the chosen rule, such as using the cell centre or including every cell touched by a feature. Grid alignment matters as well as cell size. Small settlements and narrow waterways may disappear or become exaggerated at coarse resolution. Overlapping features also require a decision about which value to retain.</p>
+<p>For raster to vector, polygonisation groups connected cells with matching category values and carries those values into polygon attributes. The connectivity rule affects whether cells meeting only at corners form one region. A noisy classification may create many small polygons. This example concerns categorical rasters: polygonising raw elevation values is usually not a useful way to represent terrain. Contour extraction is another raster-to-vector operation, and produces lines of equal elevation; interpolation from vector measurements to a raster surface is another distinct operation, not simply the inverse of polygonisation.</p>
+<p>Converting a polygon to a coarse raster and back will generally not reproduce its original boundary. Ask students which details in the pictured settlement or river might be lost as the grid becomes coarser. Choose the conversion to serve the analysis, and check its effect on areas, boundaries, and small features.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="conversions-what-happens-at-the-edges" class="slide level2">
+<h2>Conversions: what happens at the edges?</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li>A vector boundary can <strong>cross a cell</strong>; a categorical raster assigns a class to the <strong>whole cell</strong>.</li>
+<li><strong>Cell size</strong> controls how closely the grid can follow a boundary.</li>
+<li><strong>Grid alignment and assignment rules</strong> affect which cells receive each class.</li>
+<li>Narrow features may <strong>disappear or widen</strong>; measured areas and boundaries can change.</li>
+</ul>
+</div><div class="column h-center" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/raster_vector_overlay.webp" class="quarto-figure quarto-figure-center" alt="Smooth vector land-cover boundaries superimposed on a categorical raster grid over the same area, showing mismatches between cell edges and forest, river, field, and settlement boundaries." height="620"></p>
+</figure>
+</div>
+</div></div>
+<div class="callout-card">
+<p><strong>A smoother-looking output does not necessarily contain more spatial information.</strong></p>
+</div>
+<aside class="notes">
+<p>~2 min. Both representations cover the same area. In the graphic, follow a thick black vector boundary where it crosses the thin grid lines, then compare it with the stepped edges of the coloured raster classes. A cell straddling forest and grassland still needs one category under a single-class raster model. The graphic is schematic and does not specify one consistent rasterisation rule; use it to illustrate the mismatch rather than infer the exact algorithm.</p>
+<p>Imagine making the cells larger: small patches and bends in the river become harder to preserve. Moving the grid origin while keeping cell size fixed can also change which cells capture a narrow feature. A centre-based assignment can miss a feature between cell centres, whereas including every touched cell can widen it. Ask students to identify a river bend or settlement edge where the two representations disagree.</p>
+<p>If we polygonise this categorical raster, the resulting boundaries initially follow its cell edges. Smoothing those polygons changes geometry; it cannot reconstruct the original boundary uniquely. Likewise, a display can interpolate raster colours to look smooth without increasing the source resolution. Vector curves are also approximations, often stored as connected straight segments, and a crisp line is not a guarantee of positional accuracy. The point is the information supported by the representation and evidence, rather than which image looks more polished.</p>
+<p>Before conversion, decide what detail the question requires and choose an appropriate cell size, extent, grid alignment, and assignment rule. Afterwards, check small features and compare areas or distances relevant to the analysis. Align grids when combining raster layers.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="layers-and-files" class="slide level2">
 <h2>Layers and files</h2>
 <div class="columns">
@@ -303,11 +628,17 @@
 <li>Older <strong>Shapefiles</strong> are still encountered, but have limitations.</li>
 <li>A <strong>QGIS project</strong> stores a map configuration; it is not necessarily a self-contained copy of the data.</li>
 </ul>
-</div><div class="column" style="width:48%;">
-<p><img data-src="../assets/placeholders/image.svg" class="img-card" style="width:95.0%" alt="PLACEHOLDER: QGIS layers panel and map"></p>
+</div><div class="column h-center" style="width:48%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://www.ordnancesurvey.co.uk/img-assets/media-components/01-GISLayers.x506ef346.jpg?w=3840&amp;f=webp" class="img-card" alt="Diagram illustrating geographic information organised into GIS layers." height="600"></p>
+<figcaption>GIS layers representing different geographic information. Source: <a href="https://www.ordnancesurvey.co.uk/img-assets/media-components/01-GISLayers.x506ef346.jpg?w=3840&amp;f=webp">Ordnance Survey</a>.</figcaption>
+</figure>
+</div>
 </div></div>
 <aside class="notes">
-<p>~2 min. Distinguish data files from a saved project. Explain why a project can open with missing layers if paths change.</p>
+<p>~2 min. Use the illustration to explain that layers organise different geographic information over a shared area. They are drawn in a chosen order; they are not physically separated surfaces in the landscape. A map can combine raster and vector layers when their spatial references are handled correctly.</p>
+<p>Distinguish a displayed layer, its source data, and a saved project. One file can contain several datasets, as in a GeoPackage, and the same source can be displayed in several layers with different styling or filters. A QGIS project records sources and map configuration but does not necessarily bundle the data. Explain why a project can open with missing layers if source files move or paths change. Image source: Ordnance Survey; linked directly to the original image rather than the search-engine proxy.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -325,16 +656,32 @@
 </section>
 <section id="coordinates-need-a-reference-system" class="slide level2">
 <h2>Coordinates need a reference system</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
 <ul>
 <li><strong>Geographic coordinates:</strong> longitude and latitude (angular units).</li>
 <li><strong>Projected coordinates:</strong> positions on a flat map (often metres).</li>
 <li>A <strong>coordinate reference system (CRS)</strong> specifies how coordinates relate to the Earth.</li>
 </ul>
+</div><div class="column h-center" style="width:55%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/ptolemy-world-map-1482.jpg" class="img-card" alt="Hand-coloured Ptolemaic map of Europe, Africa, and Asia, surrounded by wind heads, with numbered latitude and longitude lines." height="540"></p>
+<figcaption>Ptolemaic world map, Ulm edition (1482). Engraved by Johannes Schnitzer, based on Ptolemy’s Geography.</figcaption>
+</figure>
+</div>
+<div class="reference">
+<p><a href="https://www.loc.gov/exhibits/1492/mediterr.html">Historical context: Library of Congress</a></p>
+</div>
+</div></div>
 <div class="callout-card">
 <p><strong>A pair of numbers is not a usable location unless we know what coordinate system it belongs to.</strong></p>
 </div>
 <aside class="notes">
 <p>~2 min. Introduce WGS 84 geographic coordinates (EPSG:4326) and a locally appropriate projected UTM CRS. Explain that degrees are not metres.</p>
+<p>Brief historical hook (~45 seconds): Claudius Ptolemy worked in Alexandria in the second century CE. His Geography brought together place coordinates and instructions for constructing maps using latitude and longitude. He built on earlier work rather than inventing geographic coordinates. The important connection here is the idea that locations can be recorded numerically and plotted within a shared framework.</p>
+<p>This image is a much later printed interpretation: Johannes Schnitzer’s world map for the 1482 Ulm edition, not a surviving map drawn by Ptolemy himself. Point out the numbered graticule, then Europe, Africa, and Asia. The wind heads are decorative; the coordinate grid does the locating. The map represents inherited geographic knowledge and contains substantial errors: systematic coordinates do not guarantee accurate positions. Its longitude reference also predates today’s Greenwich convention. This is a historical precursor to coordinate-based mapping, not a modern CRS. Transition back to the practical question: what reference and units give our coordinate numbers meaning?</p>
+<p>Historical sources: <a href="https://www.loc.gov/exhibits/1492/mediterr.html">Library of Congress, The Mediterranean World</a>; <a href="https://apps.lib.umn.edu/bell/rmaps/1482_w.html">University of Minnesota Bell Library, Ptolemy</a>. Image supplied through the user’s link and saved locally for reliable display.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -349,19 +696,103 @@
 </section>
 <section id="why-project-the-earth" class="slide level2">
 <h2>Why project the Earth?</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="../assets/placeholders/image.svg" class="img-card" style="width:95.0%" alt="PLACEHOLDER: globe and world map projection"></p>
-</div><div class="column" style="width:50%;">
 <ul>
 <li>Earth is curved; maps and many GIS calculations use planes.</li>
 <li>Projections necessarily introduce <strong>distortion</strong>.</li>
 <li>Distortion can affect <strong>area, shape, distance, or direction</strong>.</li>
 <li>Choose a CRS appropriate to the <strong>region and measurement</strong>.</li>
 </ul>
-</div></div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/geoid_earth_map.webp" class="quarto-figure quarto-figure-center" alt="Illustrative comparison of Earth as a globe and as a flat world map with a coordinate grid." height="500"></p>
+</figure>
+</div>
 <aside class="notes">
 <p>~2 min. Mercator is visually familiar but distorts area. UTM is often useful for local or regional distance analysis; it is not a universal choice for every area or purpose.</p>
+<p>Use the image to contrast a curved surface with a flat map. The globe’s exaggerated relief and colours are illustrative: do not describe this as a measured geoid model or infer a particular projection from the artwork. The key point is that flattening Earth’s curved reference surface requires compromises. Choose a projection for the region and the property we need to measure, and check the units before calculating distances or areas.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="mercator-useful-properties-visible-distortion" class="slide level2">
+<h2>Mercator: useful properties, visible distortion</h2>
+<div class="center-block">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/mercator-britannica.jpg" class="img-card" alt="Britannica diagram comparing a globe with a Mercator world map, showing increasingly separated parallels and enlarged high-latitude land areas." height="650"></p>
+<figcaption>Mercator projection: increasing distortion at high latitudes. © Encyclopædia Britannica, Inc.&nbsp;<a href="https://cdn.britannica.com/47/2547-050-2A235895/Globe-Earth-land-distortion-projection-Mercator-latitudes.jpg">Source image</a>.</figcaption>
+</figure>
+</div>
+</div>
+<p><strong>Preserves local angles; greatly enlarges areas towards the poles.</strong></p>
+<aside class="notes">
+<p>~2 min. Follow the parallels from the globe to the map. Meridians become parallel vertical lines, and spacing between parallels increases towards the poles. Mercator is conformal: local angles and infinitesimal shapes are preserved, but area is not. Compare Greenland with Africa to make the enlargement at high latitudes tangible. Do not say that all distances or the shapes of whole continents are preserved.</p>
+<p>Its historical advantage for navigation is that constant-bearing routes, or rhumb lines, appear straight. A straight route on this map is not generally the shortest route on Earth. This makes a useful example of choosing a projection for a particular task rather than judging it by appearance alone. For archaeology, raw map areas measured in Mercator can be seriously misleading, especially far from the equator.</p>
+<p>The Britannica diagram is schematic: its outer labels say 90° N and S, but the actual Mercator projection cannot show the poles at a finite distance. The map must be truncated before them. Mention this briefly if students notice the labels; avoid presenting the image as a mathematically exact construction by projecting light from a globe.</p>
+<p>Technical reference: <a href="https://pubs.usgs.gov/pp/1395/report.pdf">USGS, Map Projections—A Working Manual</a>, Mercator section.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="different-projections-different-compromises" class="slide level2">
+<h2>Different projections, different compromises</h2>
+<div class="center-block">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/common-projections.png" class="img-card" alt="Nine labelled world maps: Robinson, Plate Carrée, Winkel Tripel, Eckert IV, Mollweide, Mercator, Wagner VII, interrupted Mollweide, and Goode Homolosine." height="650"></p>
+<figcaption>Nine world-map projections. Source: Šavrič, Jenny, White &amp; Strebe (2015), fig.&nbsp;1, <a href="https://doi.org/10.1080/15230406.2015.1014425">User preferences for world map projections</a>.</figcaption>
+</figure>
+</div>
+</div>
+<p><strong>Choose for the region and task: area, local shape, distance, or overall presentation.</strong></p>
+<aside class="notes">
+<p>~2 min. Do not walk through every name. Compare Mercator with Mollweide, then an uninterrupted map with an interrupted one. Mollweide preserves area but changes shapes. Robinson and Winkel Tripel are compromise projections for world-map presentation; they do not preserve all properties. Interrupted projections redistribute distortion by introducing cuts, which may be useful for showing land areas but inconvenient for tracing continuous routes.</p>
+<p>Ask students to watch the graticule and the outline of the same continent across panels. A familiar-looking world map is not necessarily appropriate for calculating archaeological site areas or travel distances. These are small-scale world maps, not a menu of suitable CRSs for every local excavation or regional survey. For local analysis, choose an appropriate regional projection and check its intended use and distortion.</p>
+<p>The source figure comes from a study of visual preferences and is arranged by descending map-reader preference, not by accuracy or analytical suitability. We are using it to compare representations, not to rank scientific quality. Extracted from the <a href="https://berniejenny.info/pdf/2015_Savric_etal_UserPreferenceWorldMaps.pdf">authors’ copy of the paper</a>, figure 1.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="watch-the-projection-change" class="slide level2">
+<h2>Watch the projection change</h2>
+<div class="center-block">
+<video controls="" playsinline="" preload="none" width="1360" height="765" poster="https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005090/projection_morph_comp.01000_print.jpg" aria-label="NASA animation morphing between map projections, with circles showing distortion">
+<source src="https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005090/projection_morph_comp_2160p59.94_2.webm" type="video/webm">
+<source src="https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005090/projection_morph_comp_2160p59.94_2.mp4" type="video/mp4">
+<a href="https://svs.gsfc.nasa.gov/5090">Watch Map Projections Morph on NASA's website.</a>
+</video>
+</div>
+<div class="reference">
+<p><a href="https://svs.gsfc.nasa.gov/5090">Map Projections Morph</a> (2023). Credit: NASA’s Scientific Visualization Studio. Visualization: Greg Shirah.</p>
+</div>
+<aside class="notes">
+<p>~1–2 min. Press play manually; the video streams from NASA and needs internet access. The source link below the player also opens NASA’s page if playback fails. Ask students to track one continent and the overlaid circles as the projection changes. Each circle represents the same area on the globe, one million square kilometres, roughly the area of Egypt. Their changing shapes and sizes reveal how distortion varies across a map.</p>
+<p>Pause briefly on a projection where circle areas remain similar but shapes change, then compare with Mercator, where circles grow strongly towards the poles. These finite circles illustrate distortion in the spirit of Tissot’s indicatrices; no mathematics is needed. Some sequences also animate projection parameters, with the changing values shown in the lower left. The animation changes the representation, not Earth’s geography. End by returning to the question: what property does our archaeological analysis need to preserve?</p>
+<p>Source and explanation: <a href="https://svs.gsfc.nasa.gov/5090">NASA SVS, visualization 5090</a>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -411,14 +842,16 @@
 <p>“Everything is related to everything else, but near things are more related than distant things.”</p>
 </blockquote>
 <p>— Waldo Tobler (1970)</p>
-</div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../assets/placeholders/image.svg" class="img-card quarto-figure quarto-figure-center" style="width:65.0%" alt="PLACEHOLDER: clustered points or spatial gradient"></p>
+<p><img data-src="../assets/content/01-geospatial-archaeology/tobler_hiking_profile.webp" class="quarto-figure quarto-figure-center" alt="Illustrative hiking elevation profile over 12 kilometres, showing uphill, level, and downhill sections labelled with percentage gradients." height="400"></p>
 </figure>
+</div>
 </div>
 <aside class="notes">
 <p>~2 min. This is a useful empirical generalization, not an inviolable physical law. Nearby observations may be similar due to shared environments or interaction. Distant places can also be closely connected.</p>
+<p>Use the hiking profile to bridge to the next slide’s question: what counts as near? Equal distances can involve different movement effort across uphill, level, and downhill terrain. The gradient labels are percentages, not degrees: a 10% gradient means 10 m of vertical change per 100 m of horizontal distance. Treat this as a schematic illustration rather than a measured route or a source of precise slope estimates.</p>
+<p>Keep the two Tobler ideas distinct. The quotation is his first law of geography; this hiking graphic concerns terrain and movement cost, associated with his separate work on hiking speed. It does not plot the hiking-speed function or directly demonstrate spatial autocorrelation. Here it prompts the question of whether straight-line distance captures the relationships that matter archaeologically.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -433,15 +866,18 @@
 </section>
 <section id="what-counts-as-near" class="slide level2">
 <h2>What counts as ‘near’?</h2>
-<ul>
-<li><strong>Euclidean distance:</strong> straight-line separation.</li>
-<li><strong>Travel distance or cost:</strong> movement along paths or across terrain.</li>
-<li><strong>Adjacency:</strong> features share a boundary or touch.</li>
-<li><strong>Connectivity:</strong> features belong to a network.</li>
-<li><strong>Containment / intersection:</strong> geometries occupy overlapping space.</li>
-</ul>
+<div class="center-block">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/distance_spatial_relationships.webp" class="quarto-figure quarto-figure-center" alt="Five illustrated comparisons of distance metrics, travel cost across terrain, polygon adjacency, network connectivity, and containment or intersection." height="740"></p>
+</figure>
+</div>
+</div>
 <aside class="notes">
 <p>~2 min. A site across a river may be closer in straight-line distance but harder to reach. The appropriate spatial relation depends on the archaeological question.</p>
+<p>Use the panels selectively rather than reading all their text. Start with straight-line separation versus travel through terrain: a longer route may take less time or effort. Travel distance and accumulated movement cost are different quantities; a least-cost route need not be the shortest path. The alternative grid metrics illustrate that distance depends on permitted movements. Treat the displayed paths and numbers as schematic, not a worked calculation.</p>
+<p>Then distinguish neighbourhood from network connection. Adjacency needs a stated rule: polygons can be neighbours if they share an edge, or under a broader rule if they touch at a corner. The adjacency artwork is imperfect: B and C appear to share an edge despite the caption saying they touch at a single point. Explain the rule verbally rather than using that pair as an exact geometry example. Connected places need not be directly linked; a path can pass through intermediate nodes.</p>
+<p>Finish with a site inside a survey area or two overlapping land-use polygons. Containment places one geometry inside another; intersection means they share some location and can include touching, not only overlap of polygon interiors. Ask which relationship would answer an archaeological question about access, survey coverage, or shared territory.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -456,19 +892,126 @@
 </section>
 <section id="spatial-dependence-and-clustering" class="slide level2">
 <h2>Spatial dependence and clustering</h2>
-<div class="columns">
-<div class="column" style="width:52%;">
 <ul>
 <li>Spatial observations are often <strong>not independent</strong>.</li>
 <li>Nearby sites may share environmental and historical influences.</li>
 <li>Apparent clusters can also arise from <strong>survey coverage</strong>.</li>
 <li>A mapped cluster is not automatically evidence of social interaction.</li>
 </ul>
-</div><div class="column" style="width:48%;">
-<p><img data-src="../assets/placeholders/image.svg" class="img-card" style="width:95.0%" alt="PLACEHOLDER: clustered sites and surveyed area boundary"></p>
-</div></div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/spatial-autocorrelation-westerholt.png" class="img-card" alt="Three maps of the same Dortmund grid showing similar neighbouring values, a randomised arrangement, and contrasting neighbouring values." height="360"></p>
+<figcaption>Positive (a), randomised (b), and negative (c) spatial autocorrelation. Westerholt (2022), fig.&nbsp;1, p.&nbsp;44. <a href="https://doi.org/10.14361/9783839463109-003">Source</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; figure extracted from the page.</figcaption>
+</figure>
+</div>
 <aside class="notes">
 <p>~2 min. Introduce spatial autocorrelation conceptually, without Moran’s I. Ask what an observed distribution is being compared against.</p>
+<p>Read left to right: positive autocorrelation means nearby values tend to be similar; the middle panel illustrates randomisation; negative autocorrelation means neighbouring values tend to contrast. These are population-grid examples from Dortmund based on the 2011 German Census, with spatial filtering used to construct panels a and c.&nbsp;They are not archaeological site distributions. The panels have different value ranges: compare spatial arrangements, not the same shade as if it represented the same number across all three legends.</p>
+<p>Distinguish similarity of measured values from clustering of point locations. Archaeological examples of autocorrelated values might include neighbouring cells with similar artefact densities. A cluster of settlement points is a related but different spatial question. Neither pattern alone establishes interaction or causation. Neighbour definitions and scale matter; a global statistic near its null expectation also does not rule out local structure. Keep the mathematics for a later class.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="case-study-are-neighbouring-houses-contemporary" class="slide level2">
+<h2>Case study: are neighbouring houses contemporary?</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><strong>Jōmon pithouses, Chiba New Town, Japan</strong></p>
+<ul>
+<li>Mapped houses appear in <strong>clusters</strong>.</li>
+<li>Excavated areas define where evidence was recovered.</li>
+<li><strong>Dating uncertainty</strong> complicates comparisons through time.</li>
+</ul>
+<p><strong>Question:</strong> does proximity imply that households lived together?</p>
+</div><div class="column h-center" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/crema-bevan-lake-2010-fig2.jpg" class="img-card" alt="Map of pithouses and excavation areas over elevation in Chiba New Town, Japan, with the Ariyoshi cluster sub-study area outlined." height="560"></p>
+<figcaption>Pithouses, excavation areas, and terrain. Crema, Bevan &amp; Lake (2010), fig.&nbsp;2. <a href="https://doi.org/10.1016/j.jas.2009.12.012">Source</a>.</figcaption>
+</figure>
+</div>
+</div></div>
+<aside class="notes">
+<p>~2 min. Point out pithouses, excavation boundaries, and the Ariyoshi sub-study area. This is a study-area map, not a statistical result. Crema and colleagues analyse Jōmon settlement patterns while accounting for uncertain chronology using probability weighting and simulation. Nearby houses need not have been occupied together. Ask what dates and observation coverage would be needed before interpreting a cluster as a community.</p>
+<p>Reading: <a href="https://discovery.ucl.ac.uk/id/eprint/148634/1/148634_Cremaetal10_postprint.pdf">Crema, Bevan &amp; Lake (2010), author manuscript</a>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="simple-clustering-statistics-morans-i" class="slide level2">
+<h2>Simple clustering statistics: Moran’s I</h2>
+<p><strong>Question:</strong> do neighbouring survey squares have similar artefact counts?</p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<p><strong>Four equal-area squares in a row</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Square</th>
+<th style="text-align: right;">A</th>
+<th style="text-align: right;">B</th>
+<th style="text-align: right;">C</th>
+<th style="text-align: right;">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Count</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Count − mean</td>
+<td style="text-align: right;">−3</td>
+<td style="text-align: right;">−3</td>
+<td style="text-align: right;">+3</td>
+<td style="text-align: right;">+3</td>
+</tr>
+</tbody>
+</table>
+<p>Mean = <strong>5</strong>. Neighbours: <strong>A–B, B–C, C–D</strong>.</p>
+<p>Equal survey effort; each neighbour link has weight <strong>1</strong>.</p>
+</div><div class="column" style="width:52%;">
+<p><strong>Multiply neighbouring deviations</strong></p>
+<ul>
+<li>A–B: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>+</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">(−3)(−3) = +9</annotation></semantics></math></li>
+<li>B–C: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>+</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">(−3)(+3) = −9</annotation></semantics></math></li>
+<li>C–D: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>+</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>+</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>+</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">(+3)(+3) = +9</annotation></semantics></math></li>
+</ul>
+<p>Count both directions: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>9</mn><mo>−</mo><mn>9</mn><mo>+</mo><mn>9</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>18</mn></mrow><annotation encoding="application/x-tex">2(9-9+9)=18</annotation></semantics></math>.</p>
+<p>Sum of squared deviations: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>×</mo><mn>9</mn><mo>=</mo><mn>36</mn></mrow><annotation encoding="application/x-tex">4\times9=36</annotation></semantics></math>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><mfrac><mn>4</mn><mn>6</mn></mfrac><mo>×</mo><mfrac><mn>18</mn><mn>36</mn></mfrac><mo>=</mo><menclose notation="box"><mfrac><mn>1</mn><mn>3</mn></mfrac></menclose></mrow><annotation encoding="application/x-tex">I=\frac{4}{6}\times\frac{18}{36}=\boxed{\frac{1}{3}}</annotation></semantics></math></p>
+</div></div>
+<div class="callout-card">
+<p><strong>Positive I: similar values tend to be neighbours. Statistical significance needs a comparison with random rearrangements.</strong></p>
+</div>
+<div class="reference">
+<p>Invented example. Method: <a href="https://doc.esri.com/en/arcgis-pro/latest/tool-reference/spatial-statistics/h-how-spatial-autocorrelation-moran-s-i-spatial-st.html">Global Moran’s I, Esri documentation</a>.</p>
+</div>
+<aside class="notes">
+<p>~3 min. This is spatial autocorrelation of an attribute measured at fixed locations, rather than unmarked point-pattern analysis of where sites occur. The counts are invented and assume equal-sized squares, comparable detection, and equal effort. In a field application we would check those assumptions or choose an appropriately adjusted variable.</p>
+<p>Walk along A–B–C–D. With mean 5, low counts have negative deviations and high counts positive deviations. Multiplying deviations gives a positive contribution for low–low or high–high neighbours and a negative contribution for a low–high pair. Two same-value links outweigh the contrasting middle link here.</p>
+<p>The general formula is I = (n / S₀) × [ΣᵢΣⱼ wᵢⱼ(xᵢ − mean)(xⱼ − mean)] / [Σᵢ(xᵢ − mean)²]. Here n = 4. Use symmetric binary weights, no self-neighbours, and no row standardisation: only adjacent squares are linked. There are three undirected links, counted in both directions in the double sum, giving S₀ = 6. The numerator is 18 and the denominator 36, so I = 1/3. Explicitly identify 4 as the number of squares and 6 as the total weight to prevent the prefactor seeming arbitrary.</p>
+<p>Interpret this as a positive autocorrelation score for this neighbourhood definition, not a correlation of 33%, a p-value, proof of interaction, or a demonstrated significant cluster. A randomisation test keeps locations and links fixed and rearranges the observed counts. Under the usual randomisation null with no self-weights, expected I is −1/(n−1), here −1/3, rather than exactly zero. This tiny example explains the arithmetic and has little inferential power. Do not present −1 and +1 as universal fixed bounds for every weights matrix.</p>
+<p>Optional verbal contrast: rearranging the same counts as 2, 8, 2, 8 makes all three neighbour products negative and gives I = −1 with these particular weights. Neighbour definitions and weight standardisation change the calculation, so state them. No need to introduce local Moran statistics here.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -491,11 +1034,17 @@
 <p><strong>Buffer:</strong> construct a zone within a specified distance of features.</p>
 <p><strong>Distance:</strong> measure separation from features or locations.</p>
 <p><em>Example:</em> Which archaeological sites lie within 500 m of mapped rivers?</p>
-</div><div class="column" style="width:48%;">
-<p><img data-src="../assets/placeholders/image.svg" class="img-card" style="width:95.0%" alt="PLACEHOLDER: river buffer and archaeological site points"></p>
+</div><div class="column h-center" style="width:48%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/qgis-buffer1.png" class="img-card" style="width:95.0%" alt="QGIS diagram showing circular buffers around points, a corridor around a line, and outward and inward polygon buffers."></p>
+<figcaption>Buffers around points, a line, and polygons, including an inward polygon buffer. Source: <a href="https://docs.qgis.org/3.44/en/_images/buffer1.png">QGIS 3.44 documentation</a>.</figcaption>
+</figure>
+</div>
 </div></div>
 <aside class="notes">
 <p>~2 min. Distances should be calculated with appropriate units and CRS. A buffer does not imply that people historically travelled in straight lines.</p>
+<p>Read the diagram from left to right: point buffers form discs; a line buffer forms a corridor; a positive polygon buffer expands its footprint; a negative polygon buffer contracts it. A 500 m river buffer extends 500 m on each side of a line representation, not 250 m per side. Overlapping buffers can remain separate or be dissolved into one zone. Select or spatially join site points against the buffer to answer the example question. Modern mapped rivers may differ from ancient waterways, so the geometric result still needs historical interpretation.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -517,11 +1066,13 @@
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../assets/placeholders/image.svg" class="img-card quarto-figure quarto-figure-center" style="width:78.0%" alt="PLACEHOLDER: three-panel clip, intersect, spatial join diagram"></p>
+<p><img data-src="../assets/content/01-geospatial-archaeology/gis_operations.webp" class="quarto-figure quarto-figure-center" alt="Three-panel diagram showing a layer clipped to a mask, overlapping polygons intersected, and district attributes joined to archaeological site points." height="500"></p>
 </figure>
 </div>
 <aside class="notes">
 <p>~3 min. Example: clip a soil map to the survey region, intersect settlement polygons with soil types, or attach geology attributes to site points. Mention that joins may create multiple matches.</p>
+<p>Read the graphic left to right. Clip uses a boundary as a cookie cutter: in a vector clip, keep input geometry inside the mask and retain the input attributes. A vector intersection creates the shared geometry and can carry attributes from both inputs. A spatial join generally retains the target geometry and adds information from matching features, as in the illustrated district column added to the site table. Joins can also summarise matches, such as counting sites per district.</p>
+<p>Distinguish changing geometry from attaching attributes. A spatial join does not cut a settlement polygon into soil zones; intersection can do that. State the relationship used for a join, such as within or intersects. Points on boundaries, overlapping polygons, or several candidate matches require a rule; do not assume exactly one match per feature. The graphic is schematic, not a complete dataset or a precise coordinate overlay.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -536,19 +1087,22 @@
 </section>
 <section id="working-with-raster-values" class="slide level2">
 <h2>Working with raster values</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
 <ul>
 <li><strong>Sample:</strong> retrieve elevation at each site.</li>
 <li><strong>Derive:</strong> calculate slope from a DEM.</li>
 <li><strong>Summarize:</strong> mean elevation within a survey polygon (zonal statistics).</li>
 <li><strong>Combine:</strong> raster calculations or classifications.</li>
 </ul>
-</div><div class="column" style="width:50%;">
-<p><img data-src="../assets/placeholders/image.svg" class="img-card" style="width:95.0%" alt="PLACEHOLDER: DEM and archaeological points or slope map"></p>
-</div></div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/raster_operations.webp" class="quarto-figure quarto-figure-center" alt="Illustration of a raster and its value histogram, followed by cell-wise addition of two three-by-three rasters." height="560"></p>
+</figure>
+</div>
 <aside class="notes">
 <p>~2 min. Raster values are cell-based estimates. Elevation at a point inherits the DEM’s resolution and measurement limitations.</p>
+<p>Use the top panel to distinguish spatial arrangement from the distribution of values: the histogram counts values in bins but does not show where those cells are. A mean over a survey polygon is a zonal summary; its boundary defines which cells contribute. NoData must be handled explicitly rather than treated as zero.</p>
+<p>In the lower panel, compare matching cells: the top-left result is 10 + 2 = 12. A meaningful cell-wise calculation requires compatible units and spatially aligned grids, including CRS, cell size, and origin. Software may resample mismatched grids; check that decision rather than assuming row and column indices alone identify the same places. Slope is different from the illustrated addition: it uses neighbouring elevations, not just one cell’s value.</p>
+<p>The top panel is schematic and internally inconsistent: the drawn grid has 7 × 7 = 49 cells, while the summary says 36. Do not use its histogram or listed summary values as a verified numerical exercise. The lower-panel addition can be used as the worked arithmetic example.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -590,16 +1144,21 @@
 </section>
 <section id="resolution-precision-accuracy" class="slide level2">
 <h2>Resolution, precision, accuracy</h2>
-<ul>
-<li><strong>Resolution:</strong> smallest spatial detail represented (e.g., 30 m cells).</li>
-<li><strong>Precision:</strong> fineness or repeatability of recorded measurements.</li>
-<li><strong>Accuracy:</strong> closeness to the actual position or value.</li>
-</ul>
+<div class="center-block">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/resolution_precision_accuracy.webp" class="quarto-figure quarto-figure-center" alt="Three-panel comparison of raster resolution, measurement precision shown by target-point spread, and accuracy shown by proximity to the target centre." height="560"></p>
+</figure>
+</div>
+</div>
 <div class="callout-card">
 <p><strong>Eight decimal places do not guarantee an accurately located archaeological site.</strong></p>
 </div>
 <aside class="notes">
 <p>~2 min. Contrast precise-looking GPS coordinates with uncertain site location. A 30 m raster cannot resolve 2 m features; higher display zoom does not create new information.</p>
+<p>Read left to right. Resolution concerns the spatial detail represented: smaller cells can represent finer variation over the same extent when supported by the source data. Treat the drawn grids as schematic, not as a numerically exact cell-count exercise for the labelled dimensions.</p>
+<p>Precision in the target example means repeatability: tightly grouped measurements have little spread. Accuracy concerns closeness to the true position, represented by the target centre. The offset cluster on the far right is precise but inaccurate, illustrating systematic error. These properties are distinct: repeated GPS fixes can agree closely while all being displaced from a surveyed control point. More decimal places describe numerical fineness, not evidence of repeatable or accurate measurement.</p>
+<p>Ask which problem would be fixed by collecting more decimal places: none of the underlying location errors. Improving accuracy needs better observations, control, or correction of systematic error. A finer output raster likewise does not repair inaccurate input measurements. Keep the distinction tied to archaeological examples such as uncertain findspots, survey control, and terrain models.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -614,18 +1173,19 @@
 </section>
 <section id="scale-changes-the-pattern" class="slide level2">
 <h2>Scale changes the pattern</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li>Individual artefacts, sites, regions and continents answer different questions.</li>
-<li>Aggregating observations can hide local variation.</li>
-<li>Results may change with the size and shape of spatial units (<strong>MAUP</strong>).</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<p><img data-src="../assets/placeholders/image.svg" class="img-card" style="width:95.0%" alt="PLACEHOLDER: same point distribution aggregated to different grids"></p>
-</div></div>
+<div class="center-block">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/maup_ore_metalworking.webp" class="quarto-figure quarto-figure-center" alt="Schematic MAUP example with the same 36 sites: individual ore availability and metalworking have zero correlation, while vertical-zone averages give a positive correlation and horizontal-zone averages a negative correlation." height="730"></p>
+</figure>
+</div>
+</div>
+<p><strong>MAUP — Modifiable Areal Unit Problem:</strong> results depend on how observations are grouped into areas.</p>
 <aside class="notes">
-<p>~2 min. Do not teach MAUP formally; show how a heat map or count per administrative district changes when the aggregation grid changes.</p>
+<p>~2 min. This is a constructed example, not an archaeological dataset. Start at the left: the 36 site observations are identical across all panels. Background colour represents ore availability; filled dots indicate metalworking and open dots its absence. At site level, the illustrated association is zero.</p>
+<p>In the middle, aggregate into vertical strips. Each strip contributes its mean ore availability and proportion of sites with metalworking. Those six pairs show a positive association. On the right, aggregate the very same observations into horizontal strips and the association reverses. The plotted r values describe different units of analysis: 36 sites versus six zone summaries. No archaeological observations changed; the grouping changed.</p>
+<p>This specifically illustrates the zoning component of MAUP: zones have comparable size and the same number of sites, but their boundaries group observations differently. The scale component concerns changing the size or number of aggregation units. Both can affect inferred patterns. Do not claim that this example demonstrates causation, that every aggregation reverses a correlation, or that an area-level association necessarily applies to individual sites: the latter inference risks an ecological fallacy.</p>
+<p>Ask: would we conclude that ore attracts or repels metalworking if we saw only one aggregated plot? Choose spatial units with an archaeological rationale and examine sensitivity to alternative sizes and boundaries, rather than selecting the arrangement that produces a preferred result.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -640,19 +1200,25 @@
 </section>
 <section id="archaeological-maps-also-have-time" class="slide level2">
 <h2>Archaeological maps also have time</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
 <li>Features on the same map may <strong>not have coexisted</strong>.</li>
 <li>Chronological assignments can be broad or uncertain.</li>
 <li>Landscape features (rivers, shorelines, roads) <strong>change through time</strong>.</li>
 <li>A spatial pattern without temporal control can be misleading.</li>
 </ul>
+</div><div class="column h-center" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../assets/placeholders/image.svg" class="img-card quarto-figure quarto-figure-center" style="width:70.0%" alt="PLACEHOLDER: time-sliced settlement maps"></p>
+<p><img data-src="../assets/content/01-geospatial-archaeology/crema-bevan-lake-2010-fig1.jpg" class="img-card" alt="Space-time diagram showing archaeological events with different timings and durations projected into one observed spatial pattern." height="580"></p>
+<figcaption>Collapsing space and time into a mapped pattern. Crema, Bevan &amp; Lake (2010), fig.&nbsp;1. <a href="https://doi.org/10.1016/j.jas.2009.12.012">Source</a>.</figcaption>
 </figure>
 </div>
+</div></div>
 <aside class="notes">
 <p>~2 min. Explain the palimpsest problem. A GIS layer of all known sites is often a cumulative record, not a snapshot of a historical landscape.</p>
+<p>The vertical axis is time, rather than elevation. Events within a selected time block are collapsed onto a spatial plane. Single episodes, repeated activity, and long-duration occupation can therefore appear equivalent in the mapped pattern. Relate this to the earlier pithouse example: locations alone cannot establish a contemporary community. Ask what changes if we narrow the time window.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -667,19 +1233,30 @@
 </section>
 <section id="the-archaeological-observation-process" class="slide level2">
 <h2>The archaeological observation process</h2>
-<div class="center-block">
+<div class="columns">
+<div class="column" style="width:45%;">
 <p><strong>Past activity → preservation → discovery → recording → GIS layer</strong></p>
-</div>
 <ul>
 <li>Preservation is spatially variable.</li>
 <li>Surveys do not cover all areas equally.</li>
 <li>Detection and classification are imperfect.</li>
 </ul>
+</div><div class="column h-center" style="width:55%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/ireland_roadscheme_archaeology.PNG" class="img-card" alt="Excerpt from Michael Stanley's article beside a map of Ireland with archaeological discoveries forming conspicuous linear corridors." height="500"></p>
+<figcaption>Michael Stanley (2017), “‘Spot the road scheme’: transforming the archaeological landscape of rural Ireland.” Archaeology Ireland 31(3): 38–41. <a href="https://www.jstor.org/stable/90014383">JSTOR</a>.</figcaption>
+</figure>
+</div>
+</div></div>
 <div class="callout-card">
 <p><strong>A distribution of recorded sites is not necessarily a distribution of past activity.</strong></p>
 </div>
 <aside class="notes">
 <p>~2 min. This is arguably the most important interpretive warning. Site absences may be absences of observation rather than evidence of no occupation.</p>
+<p>Use Stanley’s “Spot the road scheme” example to ask what produces the conspicuous corridors of discoveries. Road construction creates opportunities for archaeological investigation, so the distribution of recorded evidence can reflect modern development and excavation coverage as well as past activity. Do not read the lines of dots as ancient routes on the basis of this map alone.</p>
+<p>Follow the sequence on the left: archaeology must survive, be encountered, be recognised, and enter the record before it appears in GIS. Development-led archaeology adds valuable evidence, but its spatial coverage is shaped by where development occurs. A blank area away from an investigated corridor is not equivalent to an excavated area with no finds. Ask students what coverage information they would want before comparing site densities across Ireland.</p>
+<p>Article metadata cross-checked against <a href="https://www.iho.ie/index.php?iho_function=1&amp;iho_identifier=100336">Irish History Online</a> and the <a href="https://archaeologyireland.ie/recent-issues/autumn-2017/">journal’s Autumn 2017 issue</a>; the caption links to the supplied JSTOR record.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -700,11 +1277,13 @@
 <p><strong>Research question:</strong> Were settlements preferentially located near waterways?</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../assets/placeholders/image.svg" class="img-card quarto-figure quarto-figure-center" style="width:80.0%" alt="PLACEHOLDER: Angkor settlements, water network and landscape"></p>
+<p><img data-src="../assets/content/01-geospatial-archaeology/ringforts_ennis_waterways.png" class="img-card" alt="Map of recorded ringfort points and modern river routes in a small study area around Ennis, County Clare, with a kilometre scale bar and grid north arrow." height="620"></p>
+<figcaption>Ringforts and modern waterways around Ennis, County Clare. Sources: <a href="https://data.gov.ie/dataset/national-monuments-service-archaeological-survey-of-ireland">National Monuments Service</a> and <a href="https://data.gov.ie/dataset/river-network-routes">EPA</a>, CC BY 4.0.</figcaption>
 </figure>
 </div>
 <aside class="notes">
-<p>~2 min. Use an Angkor example or another landscape with reliable settlement and river data. Explain the question before any tools.</p>
+<p>~2 min. This map is generated by notebooks/ringforts_rivers_setup.qmd from the small-area Ennis downloads. It combines recorded ringfort points with EPA modern river routes in Irish Transverse Mercator (EPSG:2157). Explain the question before any tools: are ringforts preferentially located near waterways, compared with appropriate background locations?</p>
+<p>The map is descriptive, not a test of preference. The ringfort classes combine raths, cashels, and unclassified records; this is not a map of every kind of settlement or a single contemporary population. NMS locations are approximate centroids, and the hydrography is modern. Displayed rivers are clipped to the teaching rectangle; any later nearest-river analysis needs surrounding coverage to avoid edge effects. Point out the two layers, legend, and projected scale before discussing buffers and distances.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -728,6 +1307,31 @@
 </ol>
 <aside class="notes">
 <p>~3 min. A map or list of distances is a descriptive result. A preference claim requires comparison with where settlements could have been and could have been observed.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="results-distances-to-the-nearest-waterway" class="slide level2">
+<h2>Results: distances to the nearest waterway</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../assets/content/01-geospatial-archaeology/ringforts_ennis_distance_histograms.png" class="img-card" alt="Overlaid translucent histograms comparing nearest-waterway distances for recorded ringforts and uniform random points within the same study boundary." height="650"></p>
+<figcaption>Ringforts and uniform random points within the same Ennis study area; shared 100 m bins, percentages within each group. Data: <a href="https://data.gov.ie/dataset/national-monuments-service-archaeological-survey-of-ireland">NMS</a> and <a href="https://data.gov.ie/dataset/river-network-routes">EPA</a>, CC BY 4.0.</figcaption>
+</figure>
+</div>
+<p><strong>Where do the distributions overlap, and where do they differ?</strong></p>
+<aside class="notes">
+<p>~2–3 min. This figure implements steps 3 and 4 from the previous slide. The notebook measures straight-line distances in Irish Transverse Mercator to the full river geometries, including surrounding coverage. It compares ringforts within the same display polygon with 5,000 uniform random locations sampled by projected area. A fixed random seed makes this background reproducible.</p>
+<p>Both groups share bin edges and the same distance axis. Heights are percentages of each group, so the larger random sample does not automatically produce taller bars. Transparency lets students see overlap. Start with the axis labels, then invite observations about the short-distance bins and the tails. Describe what the actual distributions show rather than assuming that ringforts must be closer to water.</p>
+<p>This is a descriptive comparison, not a significance test or evidence that water caused settlement choices. Uniform background points represent space within this teaching boundary, not a model of where ringforts could have been built, preserved, or discovered. The network is modern; monument dates, survey coverage, soils, terrain, and historical changes remain relevant. Use the next slide to discuss those interpretive questions; no further statistical analysis is needed here.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -769,16 +1373,44 @@
 </section>
 <section id="the-basic-gis-workflow" class="slide level2">
 <h2>The basic GIS workflow</h2>
-<div class="center-block">
-<p><strong>Question → Data → Check / align → Analyse → Validate → Interpret → Communicate</strong></p>
+<div class="center-block gis-workflow">
+<div class="cell" data-reveal="true" data-out-width="100%" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "24px", "lineColor": "#718781", "edgeLabelBackground": "#ffffff"}, "flowchart": {"htmlLabels": false, "curve": "basis", "nodeSpacing": 35, "rankSpacing": 25, "padding": 40}}}%%
+flowchart LR
+    Q("01 · Question&lt;br/&gt;Define the problem")
+    D("02 · Data&lt;br/&gt;Gather evidence")
+    C("03 · Check &amp; align&lt;br/&gt;CRS · units · quality")
+    A("04 · Analyse&lt;br/&gt;Measure patterns")
+    V("05 · Validate&lt;br/&gt;Check the results")
+    I("06 · Interpret&lt;br/&gt;Explain in context")
+    M("07 · Communicate&lt;br/&gt;Map &amp; tell the story")
+
+    Q --&gt; D --&gt; C --&gt; A --&gt; V --&gt; I --&gt; M
+    V -. Revise inputs .-&gt; C
+
+    classDef endpoint fill:#006c66,color:#ffffff,stroke:#006c66,stroke-width:2px,rx:14,ry:14;
+    classDef process fill:#f0f5f3,color:#243e36,stroke:#b9cec7,stroke-width:1.5px,rx:14,ry:14;
+    classDef check fill:#e8f1f8,color:#204b6d,stroke:#8db2d1,stroke-width:1.5px,rx:14,ry:14;
+    class Q,M endpoint;
+    class D,A,I process;
+    class C,V check;
+</pre>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/placeholders/image.svg" class="img-card quarto-figure quarto-figure-center" style="width:75.0%" alt="PLACEHOLDER: GIS workflow schematic or QGIS screenshot"></p>
-</figure>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-card">
+<p><strong>The workflow is iterative: checking a result can send us back to the data.</strong></p>
 </div>
 <aside class="notes">
 <p>~1 min. Recap the whole lecture as a workflow. Checking data and interpreting output are essential steps, not optional extras.</p>
+<p>Follow the main arrows from the archaeological question to communication. Use the Ennis example to make each step concrete: recorded ringforts and modern rivers; coordinates and coverage checks; nearest-waterway distances; checks on edge effects and background sampling; interpretation in light of survey and chronology; a map and a histogram for discussion. The dashed arrow represents revisiting inputs when validation reveals a problem. Other stages can also require revision: the loop is illustrative, not the only permitted route back through the workflow.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;

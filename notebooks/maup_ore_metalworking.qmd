@@ -1,0 +1,135 @@
+---
+title: "MAUP: Ore availability and metalworking"
+subtitle: "A reproducible archaeological zoning-effect demonstration"
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  echo: true
+  warning: false
+  message: false
+jupyter: python3
+---
+
+# The Modifiable Areal Unit Problem (MAUP)
+
+**Archaeological example:** Does ore availability predict evidence of metalworking? The 36 observations never change; only the boundaries used to aggregate them do. This is an intentionally constructed demonstration of the **zoning effect**, not a realistic stochastic model of metalworking.
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
+
+N = 6
+column, row = np.meshgrid(np.arange(N), np.arange(N))
+
+# Synthetic, fixed data: ore is a spatial gradient; metalworking is binary.
+ore = (column + row).astype(float)
+metalworking = (column > row).astype(int)
+
+sites = pd.DataFrame({
+    "row": row.ravel(),
+    "column": column.ravel(),
+    "ore": ore.ravel(),
+    "metalworking": metalworking.ravel(),
+})
+sites.head()
+```
+
+## Compare two equally sized zoning systems
+
+Each vertical zone is one column of six cells; each horizontal zone is one row of six cells. For each zone, compute the **mean ore availability** and the **fraction of sites with metalworking evidence**. Then calculate Pearson’s correlation between those two zone-level summaries.
+
+```{python}
+vertical = sites.groupby("column", as_index=False).agg(
+    mean_ore=("ore", "mean"),
+    metalworking_rate=("metalworking", "mean"),
+)
+horizontal = sites.groupby("row", as_index=False).agg(
+    mean_ore=("ore", "mean"),
+    metalworking_rate=("metalworking", "mean"),
+)
+
+def correlation(table):
+    return table["mean_ore"].corr(table["metalworking_rate"])
+
+print(f"Site-level correlation: {sites["ore"].corr(sites["metalworking"]):+.2f}")
+print(f"Vertical-zone correlation: {correlation(vertical):+.2f}")
+print(f"Horizontal-zone correlation: {correlation(horizontal):+.2f}")
+print("\nVertical zones:\n", vertical.to_string(index=False))
+print("\nHorizontal zones:\n", horizontal.to_string(index=False))
+```
+
+## Map the unchanged observations and the changing conclusions
+
+The raster background represents ore availability. Filled circles represent sites with metalworking evidence; open circles represent sites without it. The two zoning schemes have **identical numbers of zones and identical zone areas**.
+
+```{python}
+fig = plt.figure(figsize=(15, 8.6), layout="constrained")
+grid = fig.add_gridspec(2, 3, height_ratios=[1.1, 0.85])
+map_axes = [fig.add_subplot(grid[0, i]) for i in range(3)]
+plot_axes = [fig.add_subplot(grid[1, i]) for i in range(3)]
+
+for index, ax in enumerate(map_axes):
+    ax.imshow(ore, cmap="YlOrBr", vmin=0, vmax=10, origin="upper")
+    for y in range(N):
+        for x in range(N):
+            color = "#0e4739" if metalworking[y, x] else "white"
+            ax.scatter(x, y, s=180, c=color, edgecolor="#122b26", linewidth=1.8, zorder=3)
+    ax.set_xticks(np.arange(-0.5, N, 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, N, 1), minor=True)
+    ax.grid(which="minor", color="white", linewidth=1.5)
+    ax.tick_params(which="both", bottom=False, left=False, labelbottom=False, labelleft=False)
+    if index == 1:
+        for x in range(N):
+            ax.add_patch(Rectangle((x - 0.5, -0.5), 1, N, fill=False, edgecolor="#0c4d3b", linewidth=3))
+    if index == 2:
+        for y in range(N):
+            ax.add_patch(Rectangle((-0.5, y - 0.5), N, 1, fill=False, edgecolor="#0c4d3b", linewidth=3))
+    ax.set_title(["Same 36 sites", "A. Vertical zones", "B. Horizontal zones"][index], fontsize=17, weight="bold")
+    ax.set_xlim(-0.5, N - 0.5)
+    ax.set_ylim(N - 0.5, -0.5)
+
+map_axes[0].text(0.5, -0.13, "Filled: metalworking present · Open: absent",
+                 transform=map_axes[0].transAxes, ha="center", fontsize=10)
+
+comparisons = [
+    (sites["ore"], sites["metalworking"], "Individual sites"),
+    (vertical["mean_ore"], vertical["metalworking_rate"], "Vertical zone averages"),
+    (horizontal["mean_ore"], horizontal["metalworking_rate"], "Horizontal zone averages"),
+]
+for ax, (x, y, title) in zip(plot_axes, comparisons):
+    r = np.corrcoef(x, y)[0, 1]
+    ax.scatter(x, y, s=90, color="#12694e", edgecolor="white", linewidth=1.3, zorder=4)
+    if title != "Individual sites":
+        ax.plot(x, np.polyval(np.polyfit(x, y, 1), x), color="#b15e22", linewidth=2.5)
+    ax.set_xlim(-0.5, 10.5)
+    ax.set_ylim(-0.12, 1.12)
+    ax.grid(alpha=0.18)
+    ax.set_xlabel("Ore availability (mean for zones)")
+    ax.set_ylabel("Metalworking (proportion)")
+    ax.set_title(f"{title} | r = {r:+.2f}", fontsize=14, weight="bold")
+
+fig.suptitle("MAUP: identical archaeological observations, opposite aggregated associations", fontsize=20, weight="bold")
+plt.show()
+```
+
+## Interpretation and limitations
+
+- **Vertical zoning:** ore availability and metalworking prevalence appear perfectly positively associated.
+- **Horizontal zoning:** they appear perfectly negatively associated.
+- **Original sites:** the ordinary Pearson correlation between ore and the binary metalworking indicator is zero.
+
+This illustrates the **zoning effect** of MAUP: changing boundaries at a fixed number and size of zones can reverse an ecological association. It does **not** show a causal relationship, and the perfect correlations are engineered for clarity. The example also illustrates why an ecological correlation must not be read as an individual-site relationship. For a real study, investigate sensitivity to defensible zoning schemes and model site-level variation when possible.
+
+```{python}
+assert np.isclose(sites["ore"].corr(sites["metalworking"]), 0, atol=1e-12)
+assert np.isclose(correlation(vertical), 1)
+assert np.isclose(correlation(horizontal), -1)
+assert len(vertical) == len(horizontal) == 6
+assert (sites.groupby("column").size() == 6).all()
+assert (sites.groupby("row").size() == 6).all()
+print("All consistency checks passed.")
+```

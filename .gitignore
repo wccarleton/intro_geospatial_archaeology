@@ -2,6 +2,7 @@
 **/*.quarto_ipynb
 **/*_files/
 /export/
+/data/
 
 # docs/ is committed: Cloudflare Pages serves it as built (build command: exit 0).
 

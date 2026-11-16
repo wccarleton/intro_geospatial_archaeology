@@ -1,0 +1,411 @@
+---
+title: "Ringforts and waterways: a small-area teaching dataset"
+subtitle: "Download, map, and compare distances around Ennis, County Clare"
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  echo: true
+  warning: true
+---
+
+## Aim
+
+Use a small area around **Ennis, County Clare**, approximately **10 × 11 km**, for a classroom example with ringfort points and river lines. Both downloads are filtered **on the server**: there is no national CSV download and no unrelated 50-feature river sample. The initial check returned 159 ringforts and 103 river features, together about 300 KB; live datasets may change.
+
+This notebook downloads and inspects the data, creates a lecture map, and compares distances to waterways for ringforts and uniform random background points. The comparison is descriptive and intended for discussion. These are recorded monument locations and modern waterways, not evidence by themselves of settlement preference or contemporary occupation.
+
+Sources (CC BY 4.0; retain attribution):
+
+- National Monuments Service, Department of Housing, Local Government and Heritage: [Archaeological Survey of Ireland](https://data.gov.ie/dataset/national-monuments-service-archaeological-survey-of-ireland), via its [SMROpenData spatial service](https://services-eu1.arcgis.com/HyjXgkV6KGMSF3jt/arcgis/rest/services/SMROpenData/FeatureServer/0). This live service is separate from the previously supplied dated national CSV item.
+- Environmental Protection Agency: [River Network Routes](https://data.gov.ie/dataset/river-network-routes), via its WFS service.
+
+## Choose the classroom area
+
+Coordinates below are **west, south, east, north in longitude/latitude**. These bounds define a teaching rectangle, not the administrative boundary of Ennis or County Clare. Change them to use another small area; a query-based filename keeps different downloads separate.
+
+Run from the repository root or its `notebooks/` folder. Downloads stay in the Git-ignored `data/ringforts_ennis/` folder.
+
+```{python}
+from pathlib import Path
+
+STUDY_NAME = "Ennis, County Clare"
+BBOX = (-9.06, 52.80, -8.91, 52.90)
+west, south, east, north = BBOX
+if not (-180 <= west < east <= 180 and -90 <= south < north <= 90):
+    raise ValueError("BBOX must be west, south, east, north in degrees.")
+
+REPO_ROOT = next(
+    (folder for folder in (Path.cwd(), *Path.cwd().parents)
+     if (folder / "_quarto.yml").is_file()),
+    None,
+)
+if REPO_ROOT is None:
+    raise RuntimeError("Run this notebook from inside the course repository.")
+DATA = REPO_ROOT / "data" / "ringforts_ennis"
+DATA.mkdir(parents=True, exist_ok=True)
+print(STUDY_NAME, "| WGS 84 bounds:", BBOX)
+print("Data directory:", DATA)
+```
+
+## Download only local ringforts and rivers
+
+Select the three recorded ringfort classes: **rath**, **cashel**, and **unclassified**. Omit long descriptive notes and bibliographies; retain monument identifiers, classification, townland, and location fields. The river request selects features intersecting the **same geographic rectangle** and requests up to 5,000 features rather than only 50. This is a safeguard for a small exercise, not a method for downloading national data.
+
+```{python}
+import hashlib
+import json
+import shutil
+import urllib.request
+from urllib.parse import urlencode
+
+
+def download_geojson(url, prefix):
+    key = hashlib.sha256(url.encode()).hexdigest()[:12]
+    path = DATA / f"{prefix}_{key}.geojson"
+    if not path.exists():
+        partial = path.with_name(path.name + ".part")
+        try:
+            with urllib.request.urlopen(url, timeout=120) as response:
+                expected = response.headers.get("Content-Length")
+                with partial.open("wb") as output:
+                    shutil.copyfileobj(response, output)
+            if expected and partial.stat().st_size != int(expected):
+                raise RuntimeError("Download ended before all expected bytes arrived.")
+            # Services can send JSON/XML errors even with HTTP status 200.
+            with partial.open(encoding="utf-8-sig") as file:
+                payload = json.load(file)
+            if payload.get("type") != "FeatureCollection":
+                raise RuntimeError(f"Not GeoJSON from {url}: {str(payload)[:300]}")
+            if payload.get("exceededTransferLimit"):
+                raise RuntimeError("Server truncated the query; use a smaller BBOX.")
+            partial.replace(path)
+        finally:
+            partial.unlink(missing_ok=True)
+    with path.open(encoding="utf-8-sig") as file:
+        payload = json.load(file)
+    if payload.get("type") != "FeatureCollection" or payload.get("exceededTransferLimit"):
+        raise RuntimeError(f"Invalid or truncated cached data: {path}")
+    return path, payload
+
+
+SMR_LAYER = (
+    "https://services-eu1.arcgis.com/HyjXgkV6KGMSF3jt/arcgis/rest/services/"
+    "SMROpenData/FeatureServer/0"
+)
+ringfort_url = SMR_LAYER + "/query?" + urlencode({
+    "f": "geojson",
+    "where": "MONUMENT_CLASS IN ('Ringfort - rath','Ringfort - cashel',"
+             "'Ringfort - unclassified')",
+    "geometry": ",".join(map(str, BBOX)),
+    "geometryType": "esriGeometryEnvelope",
+    "inSR": 4326,
+    "spatialRel": "esriSpatialRelIntersects",
+    "outSR": 4326,
+    "outFields": "OBJECTID,SMRS,MONUMENT_CLASS,COUNTY,TOWNLAND,ITM_E,ITM_N",
+    "returnGeometry": "true",
+})
+# An exact intersection avoids the matched/returned count discrepancy observed
+# with this service's BBOX request. The geometry literal declares its own CRS.
+study_polygon = (
+    f"SRID=4326;POLYGON (({west} {south},{east} {south},"
+    f"{east} {north},{west} {north},{west} {south}))"
+)
+river_url = "https://gis.epa.ie/geoserver/EPA/ows?" + urlencode({
+    "service": "WFS",
+    "version": "1.0.0",
+    "request": "GetFeature",
+    "typeName": "EPA:WATER_RIVNETROUTES",
+    "CQL_FILTER": f"INTERSECTS(Shape,{study_polygon})",
+    "maxFeatures": 5000,
+    "outputFormat": "application/json",
+    "srsName": "EPSG:4326",
+})
+
+ringfort_path, ringforts = download_geojson(ringfort_url, "ringforts")
+river_path, rivers = download_geojson(river_url, "rivers")
+
+# Record the exact queries alongside the local files.
+manifest = {
+    "study_area": STUDY_NAME,
+    "bbox_wgs84": BBOX,
+    "ringfort_url": ringfort_url,
+    "river_url": river_url,
+    "ringfort_file": ringfort_path.name,
+    "river_file": river_path.name,
+    "attribution": ["National Monuments Service, Government of Ireland (CC BY 4.0)",
+                    "Environmental Protection Agency, Ireland (CC BY 4.0)"],
+}
+manifest_path = DATA / f"sources_{ringfort_path.stem}_{river_path.stem}.json"
+manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+print("Saved source queries:", manifest_path.name)
+```
+
+## Inspect size, classifications, and coverage
+
+```{python}
+from collections import Counter
+
+for label, path, collection in (
+    ("Ringforts", ringfort_path, ringforts),
+    ("Rivers", river_path, rivers),
+):
+    features = collection["features"]
+    print(f"\n{label}: {len(features)} features, {path.stat().st_size / 1024:.1f} KiB")
+    print("File:", path.name)
+    print("Geometry types:", Counter(
+        feature["geometry"]["type"] if feature.get("geometry") else "Missing"
+        for feature in features
+    ))
+    if not features:
+        raise RuntimeError(f"No {label.lower()} returned; check the area and query.")
+    print("Fields:", list(features[0]["properties"]))
+    print("First record:", features[0]["properties"])
+
+print("\nRingfort classes:", Counter(
+    feature["properties"]["MONUMENT_CLASS"] for feature in ringforts["features"]
+))
+if len(ringforts["features"]) >= 2000 or len(rivers["features"]) >= 5000:
+    raise RuntimeError("Possible query limit reached; reduce the study area.")
+
+matched = rivers.get("numberMatched", rivers.get("totalFeatures"))
+returned = len(rivers["features"])
+print("\nEPA service reports matched:", matched, "| received:", returned)
+if str(matched).isdigit() and int(matched) != returned:
+    raise RuntimeError("Service matched/returned counts differ; check river coverage "
+                       "before continuing to analysis.")
+```
+
+The river query uses an exact spatial intersection rather than the service's simple bounding-box parameter. For the initial Ennis download, its reported and returned counts both equal **103**. The code checks for mismatches and query limits, so a larger area cannot silently become an incomplete teaching dataset.
+
+## Optional: inspect geometry with GeoPandas
+
+The downloads above need only Python's standard library. GeoPandas is optional for this inspection step and is not included in the basic `teaching` environment. Both services were asked to return **EPSG:4326**, so the GeoJSON coordinates use longitude, latitude. Distances must later be calculated in an appropriate projected CRS, such as **Irish Transverse Mercator (EPSG:2157)**.
+
+```{python}
+try:
+    import geopandas as gpd
+except ImportError:
+    print("Downloads are ready. Open the two GeoJSON files in QGIS, "
+          "or use an environment with GeoPandas for geometry inspection.")
+else:
+    for path in (ringfort_path, river_path):
+        layer = gpd.read_file(path)
+        print("\n", path.name, "| CRS:", layer.crs, "| features:", len(layer))
+        print("Bounds:", layer.total_bounds)
+        print("Valid geometries:", layer.geometry.is_valid.value_counts().to_dict())
+```
+
+## Create and save the lecture map
+
+This cell needs **GeoPandas and Matplotlib** (available in the `rapidgis` conda environment on this workstation). Use that environment's Python for the notebook when running this cell. It uses the already downloaded files, with no basemap or additional network requests.
+
+Reproject both layers to **Irish Transverse Mercator, EPSG:2157**, for a map in metres with equal axis scaling. Clip the display to the study rectangle. The initial map shows **154 ringforts**: five of the 159 points returned by the server's envelope query fall outside the display boundary. Save `images/ringforts_ennis_waterways.png` for the media workflow and a matching copy under `assets/content/01-geospatial-archaeology/` used by the slide deck. Rerunning this cell refreshes both copies.
+
+```{python}
+#| label: map-ringforts-ennis
+#| fig-cap: "Recorded ringforts and modern river routes around Ennis, County Clare. Data: National Monuments Service and EPA, CC BY 4.0."
+import geopandas as gpd
+import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+from matplotlib.ticker import FuncFormatter
+from shapely.geometry import box
+
+map_crs = "EPSG:2157"
+study_area = gpd.GeoDataFrame(
+    geometry=[box(west, south, east, north)], crs="EPSG:4326"
+).to_crs(map_crs)
+site_layer = gpd.read_file(ringfort_path).to_crs(map_crs)
+river_layer = gpd.read_file(river_path).to_crs(map_crs)
+sites_display = gpd.clip(site_layer, study_area)
+rivers_display = gpd.clip(river_layer, study_area)
+
+fig, ax = plt.subplots(figsize=(10, 9), layout="constrained")
+ax.set_facecolor("#f6f5ef")
+rivers_display.plot(ax=ax, color="#3989b5", linewidth=1.2, zorder=2)
+sites_display.plot(
+    ax=ax, color="#9b4933", edgecolor="white", linewidth=0.5,
+    markersize=25, alpha=0.9, zorder=3,
+)
+study_area.boundary.plot(ax=ax, color="#58635f", linewidth=0.8, zorder=4)
+minx, miny, maxx, maxy = study_area.total_bounds
+padding = 300  # metres around the display, not extra downloaded coverage
+ax.set_xlim(minx - padding, maxx + padding)
+ax.set_ylim(miny - padding, maxy + padding)
+ax.set_aspect("equal")
+ax.xaxis.set_major_formatter(FuncFormatter(lambda value, _: f"{value / 1000:.0f}"))
+ax.yaxis.set_major_formatter(FuncFormatter(lambda value, _: f"{value / 1000:.0f}"))
+ax.set_xlabel("Easting (km; Irish Transverse Mercator)")
+ax.set_ylabel("Northing (km; Irish Transverse Mercator)")
+ax.set_title(f"Ringforts and waterways\n{STUDY_NAME}", loc="left", pad=14,
+             fontsize=19, fontweight="bold", color="#173e33")
+ax.grid(color="#dce1dc", linewidth=0.5, zorder=0)
+
+ax.legend(handles=[
+    Line2D([], [], marker="o", linestyle="none", color="#9b4933",
+           markeredgecolor="white", markersize=7,
+           label=f"Recorded ringforts ({len(sites_display)})"),
+    Line2D([], [], color="#3989b5", linewidth=1.5, label="Modern river routes"),
+], loc="upper right", framealpha=0.95)
+
+# Scale bar uses projected metres; the arrow indicates grid north.
+bar_x, bar_y = minx + 600, miny + 450
+ax.plot([bar_x, bar_x + 2000], [bar_y, bar_y], color="#173e33", linewidth=3, zorder=5)
+for offset, label in ((0, "0"), (1000, "1"), (2000, "2 km")):
+    ax.plot([bar_x + offset] * 2, [bar_y - 65, bar_y + 65], color="#173e33", zorder=5)
+    ax.text(bar_x + offset, bar_y + 130, label, ha="center", fontsize=9, zorder=5)
+ax.annotate("Grid N", xy=(0.07, 0.95), xytext=(0.07, 0.86),
+            xycoords="axes fraction", ha="center", fontsize=10,
+            arrowprops={"arrowstyle": "-|>", "color": "#173e33", "lw": 1.5})
+fig.supxlabel(
+    "Data: National Monuments Service, Government of Ireland; EPA (CC BY 4.0).\n"
+    "Modern waterways and recorded monument locations; descriptive map, not a preference test.",
+    fontsize=9, color="#45514b",
+)
+
+image_path = REPO_ROOT / "images" / "ringforts_ennis_waterways.png"
+deck_image_path = (REPO_ROOT / "assets" / "content" /
+                   "01-geospatial-archaeology" / image_path.name)
+image_path.parent.mkdir(parents=True, exist_ok=True)
+deck_image_path.parent.mkdir(parents=True, exist_ok=True)
+fig.savefig(image_path, dpi=180, facecolor="white")
+shutil.copyfile(image_path, deck_image_path)
+print("Saved:", image_path)
+print("Slide copy:", deck_image_path)
+plt.show()
+```
+
+## Compare nearest-waterway distances
+
+Use the **same projected study polygon** and ringforts as the map. Generate **5,000 uniform random points by area** within it, using a fixed seed for reproducibility. The larger background sample makes the reference distribution easier to see; histogram heights are **percentages within each group**, not raw counts.
+
+Acquire waterways in a **3 km surrounding margin** and measure straight-line distances to the full, unclipped river geometries. Check that every calculated nearest distance is less than the distance to the search boundary: a river outside the queried region then cannot be closer. This addresses the download boundary, not possible omissions in the EPA dataset.
+
+```{python}
+import numpy as np
+
+HALO_METRES = 3000
+search_bounds = study_area.buffer(HALO_METRES).to_crs("EPSG:4326").total_bounds
+search_west, search_south, search_east, search_north = search_bounds
+search_polygon = (
+    f"SRID=4326;POLYGON (({search_west} {search_south},"
+    f"{search_east} {search_south},{search_east} {search_north},"
+    f"{search_west} {search_north},{search_west} {search_south}))"
+)
+halo_url = "https://gis.epa.ie/geoserver/EPA/ows?" + urlencode({
+    "service": "WFS", "version": "1.0.0", "request": "GetFeature",
+    "typeName": "EPA:WATER_RIVNETROUTES",
+    "CQL_FILTER": f"INTERSECTS(Shape,{search_polygon})",
+    "maxFeatures": 5000, "outputFormat": "application/json",
+    "srsName": "EPSG:4326",
+})
+halo_path, halo_data = download_geojson(halo_url, "rivers_surrounding")
+halo_count = len(halo_data["features"])
+halo_matched = halo_data.get("numberMatched", halo_data.get("totalFeatures"))
+if not halo_count or halo_count >= 5000:
+    raise RuntimeError("Empty or potentially truncated surrounding-river download.")
+if str(halo_matched).isdigit() and int(halo_matched) != halo_count:
+    raise RuntimeError("Surrounding-river matched/returned counts differ.")
+halo_layer = gpd.read_file(halo_path).to_crs(map_crs)
+if halo_layer.geometry.is_empty.any() or not halo_layer.geometry.is_valid.all():
+    raise RuntimeError("Check the surrounding river geometries before measuring distances.")
+waterways = halo_layer.geometry.union_all()
+
+# Rejection sampling gives uniform locations by projected area, not by degrees.
+RANDOM_SEED = 20261116
+N_BACKGROUND = 5000
+rng = np.random.default_rng(RANDOM_SEED)
+boundary = study_area.geometry.iloc[0]
+xmin, ymin, xmax, ymax = boundary.bounds
+accepted = []
+while len(accepted) < N_BACKGROUND:
+    size = N_BACKGROUND - len(accepted)
+    candidates = gpd.GeoSeries(gpd.points_from_xy(
+        rng.uniform(xmin, xmax, size), rng.uniform(ymin, ymax, size)
+    ), crs=map_crs)
+    accepted.extend(candidates[candidates.within(boundary)].tolist())
+background_points = gpd.GeoSeries(accepted, crs=map_crs)
+
+ringfort_distances = sites_display.geometry.distance(waterways).to_numpy()
+background_distances = background_points.distance(waterways).to_numpy()
+search_boundary = gpd.GeoSeries([
+    box(*search_bounds)
+], crs="EPSG:4326").to_crs(map_crs).iloc[0].boundary
+for points, distances in (
+    (sites_display.geometry, ringfort_distances),
+    (background_points, background_distances),
+):
+    if not np.isfinite(distances).all() or (distances < 0).any():
+        raise RuntimeError("Distances must be finite and nonnegative.")
+    if not (distances < points.distance(search_boundary).to_numpy()).all():
+        raise RuntimeError("Increase HALO_METRES: a nearer waterway could lie outside coverage.")
+
+print("Ringforts:", len(ringfort_distances), "| background points:", len(background_distances))
+print("Surrounding river features:", halo_count, "| seed:", RANDOM_SEED)
+print("Search-boundary check passed for both groups.")
+
+# Keep the extra source query and sampling settings with the original provenance.
+comparison_manifest = dict(manifest, halo_url=halo_url, halo_file=halo_path.name,
+                           halo_metres=HALO_METRES, random_seed=RANDOM_SEED,
+                           background_points=N_BACKGROUND, distance_crs=map_crs)
+(DATA / "distance_comparison_sources.json").write_text(
+    json.dumps(comparison_manifest, indent=2), encoding="utf-8"
+)
+```
+
+## Plot the two distributions on the same domain
+
+Both histograms start at zero, share **100 m bin edges** and a single horizontal axis, and use transparency. They include the full range of both groups. This is one descriptive background sample, not a significance test or a survey-effort-adjusted settlement model.
+
+```{python}
+#| label: histogram-ringforts-waterways
+#| fig-cap: "Nearest-waterway distances for recorded ringforts and uniform random points in the same Ennis study area. NMS and EPA data, CC BY 4.0."
+bin_width = 100  # metres
+largest_distance = max(ringfort_distances.max(), background_distances.max())
+upper_edge = max(bin_width, np.ceil(largest_distance / bin_width) * bin_width)
+bins = np.arange(0, upper_edge + bin_width / 2, bin_width)
+
+fig, ax = plt.subplots(figsize=(12, 7.5), layout="constrained")
+ax.set_facecolor("#f6f5ef")
+ax.hist(background_distances, bins=bins,
+        weights=np.full(N_BACKGROUND, 100 / N_BACKGROUND),
+        color="#3989b5", edgecolor="#28698e", linewidth=0.7, alpha=0.45,
+        label=f"Uniform random points (n={N_BACKGROUND:,})")
+ax.hist(ringfort_distances, bins=bins,
+        weights=np.full(len(ringfort_distances), 100 / len(ringfort_distances)),
+        color="#b35a3d", edgecolor="#8c3e28", linewidth=0.8, alpha=0.55,
+        label=f"Recorded ringforts (n={len(ringfort_distances)})")
+ax.set_xlim(0, upper_edge)
+ax.set_ylim(bottom=0)
+ax.set_xlabel("Distance to nearest modern waterway (m)", fontsize=13)
+ax.set_ylabel("Points in each 100 m bin (% of group)", fontsize=13)
+ax.set_title(f"How do the distance distributions compare?\n{STUDY_NAME}",
+             loc="left", fontsize=20, fontweight="bold", color="#173e33", pad=15)
+ax.legend(framealpha=0.95, fontsize=12)
+ax.grid(axis="y", color="#dce1dc", linewidth=0.6)
+ax.set_axisbelow(True)
+for side in ("top", "right"):
+    ax.spines[side].set_visible(False)
+fig.supxlabel(
+    "Same study boundary · straight-line distances in EPSG:2157 · seeded uniform background\n"
+    "Data: National Monuments Service, Government of Ireland; EPA (CC BY 4.0).",
+    fontsize=10, color="#45514b",
+)
+histogram_path = REPO_ROOT / "images" / "ringforts_ennis_distance_histograms.png"
+histogram_deck_path = deck_image_path.with_name(histogram_path.name)
+fig.savefig(histogram_path, dpi=160, facecolor="white")
+shutil.copyfile(histogram_path, histogram_deck_path)
+print("Saved:", histogram_path)
+plt.show()
+```
+
+## Discussion limits
+
+- Open the two small GeoJSON layers together and inspect their overlap.
+- The river query selects whole features intersecting the rectangle; their geometry can extend beyond it. It does not clip the routes to the study area.
+- NMS coordinates are approximate monument centroids; modern rivers do not reconstruct early medieval waterways.
+- The distance comparison uses surrounding river coverage and checks its search boundary; the map above remains clipped for display.
+- Confirm comparable archaeological recording coverage before interpreting apparent settlement preferences. Keep chronology and dating uncertainty in view.
+
+Discuss overlap, shifts, and long-distance tails in the histograms. Uniform points describe available space in this teaching rectangle; they do not account for habitable land, past hydrology, preservation, or survey coverage. Stop at this visual comparison; no inferential test is performed.

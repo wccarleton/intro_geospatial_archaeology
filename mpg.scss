@@ -398,6 +398,28 @@ section.section-slide .section-subtitle {
 .reveal .center-block > :first-child { margin-top: 0; }
 .reveal .center-block > :last-child { margin-bottom: 0; }
 
+/* Mermaid's percentage-width SVG needs a full-width parent in a flex column. */
+.reveal .gis-workflow .cell,
+.reveal .gis-workflow .cell-output-display,
+.reveal .gis-workflow figure {
+  width: 100%;
+  max-width: none;
+}
+.reveal .gis-workflow svg.mermaid-js {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto;
+}
+/* Keep the slide's paragraph sizing from enlarging measured diagram labels. */
+.reveal .gis-workflow .nodeLabel,
+.reveal .gis-workflow .nodeLabel p,
+.reveal .gis-workflow .edgeLabel,
+.reveal .gis-workflow .edgeLabel p {
+  font-family: Arial, sans-serif !important;
+  font-size: 24px !important;
+  line-height: 1.3;
+}
+
 .reveal .h-center {
   text-align: center;
 }

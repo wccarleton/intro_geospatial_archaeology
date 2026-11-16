@@ -92,8 +92,12 @@ Remove-Item Env:TALKS_ASSETS_BASE
 (The variable keeps its `TALKS_` name so the filter stays identical to the
 talks repository's copy.)
 
-Images in the bucket are public to anyone with the link. Use your own figures,
-openly licensed figures with attribution, or figures you discuss and cite.
+The course pages are behind Cloudflare Access, but images in the bucket are
+public to anyone with the link. Put images that must stay behind the login
+(e.g. third-party figures used under the teaching exception) in `assets/content/`
+in this repository instead, referenced with relative paths such as
+`../assets/content/02-topic/figure.png`. Quarto copies referenced images into
+the build.
 
 ### One-time media setup (per computer)
 
@@ -129,7 +133,10 @@ The course gets its own Cloudflare Pages project; `teaching_home` routes
 2. Note the project's address, e.g. `https://intro-geospatial-archaeology.pages.dev`.
    Visiting it redirects to the public course URL; the course itself is at
    `<address>/<course-slug>/`.
-3. In `teaching_home`, add the slug and address to `COURSES` in
+3. Cloudflare Zero Trust → Access → Applications → the teaching application:
+   add the project's `*.pages.dev` address as another hostname, so the course
+   can't be reached around the login.
+4. In `teaching_home`, add the slug and address to `COURSES` in
    `functions/_middleware.js` and a card to `index.qmd`; render, commit, push.
 
 After that, every push to this repository's `main` updates the course.

@@ -1,0 +1,20 @@
+# Shared environment for building course sites and preparing images.
+#   conda env create -f environment.yml
+#   conda activate teaching
+#   quarto render
+# Quarto is pinned so every course builds with the same version; bump it here
+# (and in each course repo) when upgrading.
+name: teaching
+channels:
+  - conda-forge
+dependencies:
+  - quarto=1.9.37
+  - python=3.11
+  # Executing Python code cells in decks
+  - ipykernel
+  - jupyter_core
+  - nbformat
+  - nbclient
+  - pyyaml
+  # scripts/optimize-media.py
+  - pillow

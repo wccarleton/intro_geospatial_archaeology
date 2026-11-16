@@ -1,0 +1,23 @@
+---
+title: "Introduction to Geospatial Archaeology"
+subtitle: "Course website, slide decks, and practicals"
+format: html
+---
+
+This site collects the lecture slide decks, practical materials, and bibliography for the course.
+
+## Course Abstract
+
+This course introduces geospatial archaeology: how archaeologists represent,
+measure, and analyse the locations of material traces, and how they move from
+mapped patterns to defensible interpretations. It covers spatial data
+(vector and raster), coordinate reference systems and projections, spatial
+relationships and dependence, the fundamental GIS operations, and the effects of
+scale, time, and the archaeological observation process on spatial patterns.
+
+## Schedule
+
+| Session | Topic | Slides |
+|---|---|---|
+| 1 | Geospatial Archaeology and GIS | [Open slides](slides/01-geospatial-archaeology-and-gis.qmd) |
+| 2 | GIS practical | Materials to follow |

@@ -1,0 +1,4 @@
+# Cloudflare Pages rules for this course's own *.pages.dev address.
+# The site lives under /intro_geospatial_archaeology/; send visitors of the bare address to the
+# public course URL. Quarto only rebuilds docs/intro_geospatial_archaeology/, so this file stays.
+/  https://teaching.wccarleton.org/intro_geospatial_archaeology/  302

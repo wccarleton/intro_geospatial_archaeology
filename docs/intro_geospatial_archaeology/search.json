@@ -1,0 +1,247 @@
+[
+  {
+    "objectID": "bibliography.html",
+    "href": "bibliography.html",
+    "title": "Bibliography",
+    "section": "",
+    "text": "The full reading list for the course, generated from references.bib. Each lecture lists the references it cites on its final slide.\n\n\n\n\nReferences\n\nTobler, W. R. 1970. “A Computer Movie Simulating Urban Growth in the Detroit Region.” Economic Geography 46: 234–40. https://doi.org/10.2307/143141."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduction to Geospatial Archaeology",
+    "section": "",
+    "text": "This site collects the lecture slide decks, practical materials, and bibliography for the course."
+  },
+  {
+    "objectID": "index.html#course-abstract",
+    "href": "index.html#course-abstract",
+    "title": "Introduction to Geospatial Archaeology",
+    "section": "Course Abstract",
+    "text": "Course Abstract\nThis course introduces geospatial archaeology: how archaeologists represent, measure, and analyse the locations of material traces, and how they move from mapped patterns to defensible interpretations. It covers spatial data (vector and raster), coordinate reference systems and projections, spatial relationships and dependence, the fundamental GIS operations, and the effects of scale, time, and the archaeological observation process on spatial patterns."
+  },
+  {
+    "objectID": "index.html#schedule",
+    "href": "index.html#schedule",
+    "title": "Introduction to Geospatial Archaeology",
+    "section": "Schedule",
+    "text": "Schedule\n\n\n\nSession\nTopic\nSlides\n\n\n\n\n1\nGeospatial Archaeology and GIS\nOpen slides\n\n\n2\nGIS practical\nMaterials to follow"
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#why-does-location-matter",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#why-does-location-matter",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Why does location matter?",
+    "text": "Why does location matter?\nWhy are archaeological things where they are?\n\n\n\n\n\n\n~2 min. Begin with a landscape or Angkor map. Ask what we can learn from the positions and spatial relationships of material traces. The goal is not simply making maps."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#from-maps-to-explanations",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#from-maps-to-explanations",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "From maps to explanations",
+    "text": "From maps to explanations\n\nMap: Where are things?\nMeasure: How far apart, how dense, how connected?\nAnalyze: Is a pattern different from what we might expect?\nModel: What processes could generate the pattern?\n\n\nGIS is a framework for representing, manipulating, and analysing geographically referenced information.\n\n\n~2 min. Distinguish describing an archaeological pattern from explaining its origin. Maps are outputs, not the whole discipline."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#spatial-data",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#spatial-data",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "SPATIAL DATA",
+    "text": "SPATIAL DATA"
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#two-fundamental-representations",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#two-fundamental-representations",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Two fundamental representations",
+    "text": "Two fundamental representations\n\n\nVector\n\nDiscrete geometries: points, lines, polygons\n\nRaster\n\nRegular grid of cells with values\n\n\n~3 min. A site point, river line, and survey polygon versus an elevation grid or satellite image. A raster can also encode categories; it need not represent a continuous variable."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#geometry-is-a-representation",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#geometry-is-a-representation",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Geometry is a representation",
+    "text": "Geometry is a representation\n\nA point may represent an entire settlement.\nA line may represent a road of variable width.\nA polygon may represent an uncertain site boundary.\nA cell summarizes a geographic area at a chosen resolution.\n\n\n\n\n\n\n\n~2 min. Representations simplify the world. A point does not mean the settlement has zero area. Geometry is a modelling choice."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#attributes-the-other-half-of-gis",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#attributes-the-other-half-of-gis",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Attributes: the other half of GIS",
+    "text": "Attributes: the other half of GIS\n\n\n\nsite_id\nperiod\nceramics\nconfidence\n\n\n\n\nA01\nEarly medieval\n143\nHigh\n\n\nA02\nUncertain\n28\nLow\n\n\nA03\nLate medieval\n79\nMedium\n\n\n\n\nGeometry locates a feature.\nAttributes describe it.\nEach row usually corresponds to a feature; columns store variables.\n\n\n~2 min. The table is illustrative, not a real dataset. Explain that we can select, colour, filter and analyse mapped features using attributes. Mention missing values."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#layers-and-files",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#layers-and-files",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Layers and files",
+    "text": "Layers and files\n\n\n\nLayers combine geographic information in a map.\nA layer may contain vector features or a raster.\nCommon files: GeoPackage, GeoJSON, GeoTIFF, coordinate-bearing CSV.\nOlder Shapefiles are still encountered, but have limitations.\nA QGIS project stores a map configuration; it is not necessarily a self-contained copy of the data.\n\n\n\n\n\n~2 min. Distinguish data files from a saved project. Explain why a project can open with missing layers if paths change."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#coordinates-and-projections",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#coordinates-and-projections",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "COORDINATES AND PROJECTIONS",
+    "text": "COORDINATES AND PROJECTIONS"
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#coordinates-need-a-reference-system",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#coordinates-need-a-reference-system",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Coordinates need a reference system",
+    "text": "Coordinates need a reference system\n\nGeographic coordinates: longitude and latitude (angular units).\nProjected coordinates: positions on a flat map (often metres).\nA coordinate reference system (CRS) specifies how coordinates relate to the Earth.\n\n\nA pair of numbers is not a usable location unless we know what coordinate system it belongs to.\n\n\n~2 min. Introduce WGS 84 geographic coordinates (EPSG:4326) and a locally appropriate projected UTM CRS. Explain that degrees are not metres."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#why-project-the-earth",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#why-project-the-earth",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Why project the Earth?",
+    "text": "Why project the Earth?\n\n\n\n\n\nEarth is curved; maps and many GIS calculations use planes.\nProjections necessarily introduce distortion.\nDistortion can affect area, shape, distance, or direction.\nChoose a CRS appropriate to the region and measurement.\n\n\n\n~2 min. Mercator is visually familiar but distorts area. UTM is often useful for local or regional distance analysis; it is not a universal choice for every area or purpose."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#two-operations-students-must-not-confuse",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#two-operations-students-must-not-confuse",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Two operations students must not confuse",
+    "text": "Two operations students must not confuse\nAssign / define CRS\n\nTell GIS what the existing coordinate numbers mean.\n\nReproject / transform\n\nCalculate new coordinate numbers in a different CRS.\n\n\nIncorrectly assigning a CRS can put data in the wrong place.\n\n\n~2 min. This is a common practical failure. If layers do not line up, check the source CRS and coordinates before changing anything. On-the-fly display reprojection does not repair mislabelled source data."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#spatial-relationships",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#spatial-relationships",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "SPATIAL RELATIONSHIPS",
+    "text": "SPATIAL RELATIONSHIPS"
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#toblers-first-law-of-geography",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#toblers-first-law-of-geography",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Tobler’s first law of geography",
+    "text": "Tobler’s first law of geography\n\n\n“Everything is related to everything else, but near things are more related than distant things.”\n\n— Waldo Tobler (1970)\n\n\n\n\n\n\n\n~2 min. This is a useful empirical generalization, not an inviolable physical law. Nearby observations may be similar due to shared environments or interaction. Distant places can also be closely connected."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#what-counts-as-near",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#what-counts-as-near",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "What counts as ‘near’?",
+    "text": "What counts as ‘near’?\n\nEuclidean distance: straight-line separation.\nTravel distance or cost: movement along paths or across terrain.\nAdjacency: features share a boundary or touch.\nConnectivity: features belong to a network.\nContainment / intersection: geometries occupy overlapping space.\n\n\n~2 min. A site across a river may be closer in straight-line distance but harder to reach. The appropriate spatial relation depends on the archaeological question."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#spatial-dependence-and-clustering",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#spatial-dependence-and-clustering",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Spatial dependence and clustering",
+    "text": "Spatial dependence and clustering\n\n\n\nSpatial observations are often not independent.\nNearby sites may share environmental and historical influences.\nApparent clusters can also arise from survey coverage.\nA mapped cluster is not automatically evidence of social interaction.\n\n\n\n\n\n~2 min. Introduce spatial autocorrelation conceptually, without Moran’s I. Ask what an observed distribution is being compared against."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#fundamental-gis-operations",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#fundamental-gis-operations",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "FUNDAMENTAL GIS OPERATIONS",
+    "text": "FUNDAMENTAL GIS OPERATIONS"
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#buffer-and-distance",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#buffer-and-distance",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Buffer and distance",
+    "text": "Buffer and distance\n\n\nBuffer: construct a zone within a specified distance of features.\nDistance: measure separation from features or locations.\nExample: Which archaeological sites lie within 500 m of mapped rivers?\n\n\n\n\n~2 min. Distances should be calculated with appropriate units and CRS. A buffer does not imply that people historically travelled in straight lines."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#clip-intersect-and-spatial-join",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#clip-intersect-and-spatial-join",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Clip, intersect, and spatial join",
+    "text": "Clip, intersect, and spatial join\n\nClip: retain the portion of data inside a study boundary.\nIntersect / overlay: find the geographic overlap of layers.\nSpatial join: attach attributes based on spatial relationships.\n\n\n\n\n\n\n\n~3 min. Example: clip a soil map to the survey region, intersect settlement polygons with soil types, or attach geology attributes to site points. Mention that joins may create multiple matches."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#working-with-raster-values",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#working-with-raster-values",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Working with raster values",
+    "text": "Working with raster values\n\n\n\nSample: retrieve elevation at each site.\nDerive: calculate slope from a DEM.\nSummarize: mean elevation within a survey polygon (zonal statistics).\nCombine: raster calculations or classifications.\n\n\n\n\n\n~2 min. Raster values are cell-based estimates. Elevation at a point inherits the DEM’s resolution and measurement limitations."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#a-simple-analysis-is-already-possible",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#a-simple-analysis-is-already-possible",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "A simple analysis is already possible",
+    "text": "A simple analysis is already possible\nQuestion: Are recorded settlements associated with a particular soil type?\n\nLoad site locations and soil polygons.\nConfirm their CRSs.\nSpatially join soil categories to sites.\nCount sites by category.\nCompare with the area and survey effort in each category.\n\n\n~2 min. Raw site counts are not enough: abundant soil types and better-surveyed areas will naturally contain more recorded sites. This is the bridge to inference."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#scale-time-and-uncertainty",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#scale-time-and-uncertainty",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "SCALE, TIME, AND UNCERTAINTY",
+    "text": "SCALE, TIME, AND UNCERTAINTY"
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#resolution-precision-accuracy",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#resolution-precision-accuracy",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Resolution, precision, accuracy",
+    "text": "Resolution, precision, accuracy\n\nResolution: smallest spatial detail represented (e.g., 30 m cells).\nPrecision: fineness or repeatability of recorded measurements.\nAccuracy: closeness to the actual position or value.\n\n\nEight decimal places do not guarantee an accurately located archaeological site.\n\n\n~2 min. Contrast precise-looking GPS coordinates with uncertain site location. A 30 m raster cannot resolve 2 m features; higher display zoom does not create new information."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#scale-changes-the-pattern",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#scale-changes-the-pattern",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Scale changes the pattern",
+    "text": "Scale changes the pattern\n\n\n\nIndividual artefacts, sites, regions and continents answer different questions.\nAggregating observations can hide local variation.\nResults may change with the size and shape of spatial units (MAUP).\n\n\n\n\n\n~2 min. Do not teach MAUP formally; show how a heat map or count per administrative district changes when the aggregation grid changes."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#archaeological-maps-also-have-time",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#archaeological-maps-also-have-time",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Archaeological maps also have time",
+    "text": "Archaeological maps also have time\n\nFeatures on the same map may not have coexisted.\nChronological assignments can be broad or uncertain.\nLandscape features (rivers, shorelines, roads) change through time.\nA spatial pattern without temporal control can be misleading.\n\n\n\n\n\n\n\n~2 min. Explain the palimpsest problem. A GIS layer of all known sites is often a cumulative record, not a snapshot of a historical landscape."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#the-archaeological-observation-process",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#the-archaeological-observation-process",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "The archaeological observation process",
+    "text": "The archaeological observation process\n\nPast activity → preservation → discovery → recording → GIS layer\n\n\nPreservation is spatially variable.\nSurveys do not cover all areas equally.\nDetection and classification are imperfect.\n\n\nA distribution of recorded sites is not necessarily a distribution of past activity.\n\n\n~2 min. This is arguably the most important interpretive warning. Site absences may be absences of observation rather than evidence of no occupation."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#an-archaeological-workflow",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#an-archaeological-workflow",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "AN ARCHAEOLOGICAL WORKFLOW",
+    "text": "AN ARCHAEOLOGICAL WORKFLOW"
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#example-settlements-and-waterways",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#example-settlements-and-waterways",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Example: settlements and waterways",
+    "text": "Example: settlements and waterways\nResearch question: Were settlements preferentially located near waterways?\n\n\n\n\n\n\n~2 min. Use an Angkor example or another landscape with reliable settlement and river data. Explain the question before any tools."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#from-question-to-gis-operations",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#from-question-to-gis-operations",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "From question to GIS operations",
+    "text": "From question to GIS operations\n\nObtain settlement locations, waterways, and study-area boundary.\nCheck coordinates, CRSs, and attributes.\nCalculate distance to nearest waterway.\nCompare site distances with appropriate background locations.\nExamine sensitivity to chronology, survey coverage, and historic hydrology.\n\n\n~3 min. A map or list of distances is a descriptive result. A preference claim requires comparison with where settlements could have been and could have been observed."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#interpretation-is-not-an-automatic-gis-output",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#interpretation-is-not-an-automatic-gis-output",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "Interpretation is not an automatic GIS output",
+    "text": "Interpretation is not an automatic GIS output\nFinding: Many mapped sites are near rivers.\nDoes this mean rivers caused settlement locations?\n\nAre rivers common across the study region?\nWere other locations surveyed?\nDid these rivers exist during occupation?\nCould elevation, soils, or transport networks explain the pattern?\n\n\nGIS can calculate a relationship; archaeology must justify its interpretation.\n\n\n~2 min. Invite one or two student answers. The software does not choose a defensible null model or establish causation."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#the-basic-gis-workflow",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#the-basic-gis-workflow",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "The basic GIS workflow",
+    "text": "The basic GIS workflow\n\nQuestion → Data → Check / align → Analyse → Validate → Interpret → Communicate\n\n\n\n\n\n\n\n~1 min. Recap the whole lecture as a workflow. Checking data and interpreting output are essential steps, not optional extras."
+  },
+  {
+    "objectID": "slides/01-geospatial-archaeology-and-gis.html#what-you-will-do-in-the-practical",
+    "href": "slides/01-geospatial-archaeology-and-gis.html#what-you-will-do-in-the-practical",
+    "title": "Geospatial Archaeology and GIS",
+    "section": "What you will do in the practical",
+    "text": "What you will do in the practical\n\nOpen and inspect spatial layers and attributes.\nCheck the coordinate reference system.\nStyle a map to reveal a pattern.\nUse a buffer or spatial selection.\nProduce a simple map and interpretation.\n\n\nThe objective is not to memorize buttons. It is to know what operation answers your question—and what its result means.\n\n\n~1 min. Coordinate the exact list with the practical instructor and prepared dataset. Leave a moment for questions."
+  }
+]

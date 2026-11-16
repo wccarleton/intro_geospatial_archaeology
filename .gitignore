@@ -1,0 +1,24 @@
+.quarto/
+**/*.quarto_ipynb
+**/*_files/
+/export/
+
+# docs/ is committed: Cloudflare Pages serves it as built (build command: exit 0).
+
+# Local upload media, original archives, and tools
+/images/
+/media-originals/
+/tools/
+/.media-cache/
+/_quarto-local.yml
+
+# Local credentials and environment overrides
+.env
+.env.*
+*.env
+**/rclone.conf
+/credentials/
+__pycache__/
+*.pyc
+
+/.quarto/

@@ -1,0 +1,8 @@
+---
+title: "Bibliography"
+format: html
+nocite: '@*'
+---
+
+The full reading list for the course, generated from `references.bib`.
+Each lecture lists the references it cites on its final slide.

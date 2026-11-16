@@ -1,0 +1,462 @@
+---
+title: "Geospatial Archaeology and GIS"
+subtitle: "Spatial data, spatial thinking, and the foundations of archaeological GIS"
+date: today
+description: "Spatial data, coordinate systems, spatial relationships, core GIS operations, and interpretation."
+---
+
+## Why does location matter?
+
+**Why are archaeological things where they are?**
+
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: archaeological landscape with mapped features" fig-align="center" width="75%" .img-card}
+
+::: notes
+~2 min. Begin with a landscape or Angkor map. Ask what we can learn from the positions and spatial relationships of material traces. The goal is not simply making maps.
+:::
+
+---
+
+## From maps to explanations
+
+- **Map:** Where are things?
+- **Measure:** How far apart, how dense, how connected?
+- **Analyze:** Is a pattern different from what we might expect?
+- **Model:** What processes could generate the pattern?
+
+::: {.callout-card}
+**GIS is a framework for representing, manipulating, and analysing geographically referenced information.**
+:::
+
+::: notes
+~2 min. Distinguish describing an archaeological pattern from explaining its origin. Maps are outputs, not the whole discipline.
+:::
+
+---
+
+## SPATIAL DATA {.section-slide background-image="../assets/branding/section_bg.png" background-size="cover" background-position="center"}
+
+---
+
+## Two fundamental representations
+
+:::: {.columns}
+::: {.column width="50%"}
+**Vector**
+
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: points, lines and polygons" width="95%" .img-card}
+
+Discrete geometries: **points, lines, polygons**
+:::
+::: {.column width="50%"}
+**Raster**
+
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: grid cells or DEM" width="95%" .img-card}
+
+Regular grid of **cells with values**
+:::
+::::
+
+::: notes
+~3 min. A site point, river line, and survey polygon versus an elevation grid or satellite image. A raster can also encode categories; it need not represent a continuous variable.
+:::
+
+---
+
+## Geometry is a representation
+
+- A **point** may represent an entire settlement.
+- A **line** may represent a road of variable width.
+- A **polygon** may represent an uncertain site boundary.
+- A **cell** summarizes a geographic area at a chosen resolution.
+
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: same settlement shown as point, polygon and raster" fig-align="center" width="65%" .img-card}
+
+::: notes
+~2 min. Representations simplify the world. A point does not mean the settlement has zero area. Geometry is a modelling choice.
+:::
+
+---
+
+## Attributes: the other half of GIS
+
+| site_id | period | ceramics | confidence |
+|:--|:--|--:|:--|
+| A01 | Early medieval | 143 | High |
+| A02 | Uncertain | 28 | Low |
+| A03 | Late medieval | 79 | Medium |
+
+- **Geometry** locates a feature.
+- **Attributes** describe it.
+- Each row usually corresponds to a feature; columns store variables.
+
+::: notes
+~2 min. The table is illustrative, not a real dataset. Explain that we can select, colour, filter and analyse mapped features using attributes. Mention missing values.
+:::
+
+---
+
+## Layers and files
+
+:::: {.columns}
+::: {.column width="52%"}
+- **Layers** combine geographic information in a map.
+- A layer may contain vector features or a raster.
+- Common files: **GeoPackage**, **GeoJSON**, **GeoTIFF**, coordinate-bearing **CSV**.
+- Older **Shapefiles** are still encountered, but have limitations.
+- A **QGIS project** stores a map configuration; it is not necessarily a self-contained copy of the data.
+:::
+::: {.column width="48%"}
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: QGIS layers panel and map" width="95%" .img-card}
+:::
+::::
+
+::: notes
+~2 min. Distinguish data files from a saved project. Explain why a project can open with missing layers if paths change.
+:::
+
+---
+
+## COORDINATES AND PROJECTIONS {.section-slide background-image="../assets/branding/section_bg.png" background-size="cover" background-position="center"}
+
+---
+
+## Coordinates need a reference system
+
+- **Geographic coordinates:** longitude and latitude (angular units).
+- **Projected coordinates:** positions on a flat map (often metres).
+- A **coordinate reference system (CRS)** specifies how coordinates relate to the Earth.
+
+::: {.callout-card}
+**A pair of numbers is not a usable location unless we know what coordinate system it belongs to.**
+:::
+
+::: notes
+~2 min. Introduce WGS 84 geographic coordinates (EPSG:4326) and a locally appropriate projected UTM CRS. Explain that degrees are not metres.
+:::
+
+---
+
+## Why project the Earth?
+
+:::: {.columns}
+::: {.column width="50%"}
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: globe and world map projection" width="95%" .img-card}
+:::
+::: {.column width="50%"}
+- Earth is curved; maps and many GIS calculations use planes.
+- Projections necessarily introduce **distortion**.
+- Distortion can affect **area, shape, distance, or direction**.
+- Choose a CRS appropriate to the **region and measurement**.
+:::
+::::
+
+::: notes
+~2 min. Mercator is visually familiar but distorts area. UTM is often useful for local or regional distance analysis; it is not a universal choice for every area or purpose.
+:::
+
+---
+
+## Two operations students must not confuse
+
+**Assign / define CRS**
+
+> Tell GIS what the existing coordinate numbers mean.
+
+**Reproject / transform**
+
+> Calculate new coordinate numbers in a different CRS.
+
+::: {.callout-card}
+**Incorrectly assigning a CRS can put data in the wrong place.**
+:::
+
+::: notes
+~2 min. This is a common practical failure. If layers do not line up, check the source CRS and coordinates before changing anything. On-the-fly display reprojection does not repair mislabelled source data.
+:::
+
+---
+
+## SPATIAL RELATIONSHIPS {.section-slide background-image="../assets/branding/section_bg.png" background-size="cover" background-position="center"}
+
+---
+
+## Tobler's first law of geography
+
+::: {.center-block}
+> “Everything is related to everything else, but near things are more related than distant things.”
+
+— Waldo Tobler (1970)
+:::
+
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: clustered points or spatial gradient" fig-align="center" width="65%" .img-card}
+
+::: notes
+~2 min. This is a useful empirical generalization, not an inviolable physical law. Nearby observations may be similar due to shared environments or interaction. Distant places can also be closely connected.
+:::
+
+---
+
+## What counts as 'near'?
+
+- **Euclidean distance:** straight-line separation.
+- **Travel distance or cost:** movement along paths or across terrain.
+- **Adjacency:** features share a boundary or touch.
+- **Connectivity:** features belong to a network.
+- **Containment / intersection:** geometries occupy overlapping space.
+
+::: notes
+~2 min. A site across a river may be closer in straight-line distance but harder to reach. The appropriate spatial relation depends on the archaeological question.
+:::
+
+---
+
+## Spatial dependence and clustering
+
+:::: {.columns}
+::: {.column width="52%"}
+- Spatial observations are often **not independent**.
+- Nearby sites may share environmental and historical influences.
+- Apparent clusters can also arise from **survey coverage**.
+- A mapped cluster is not automatically evidence of social interaction.
+:::
+::: {.column width="48%"}
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: clustered sites and surveyed area boundary" width="95%" .img-card}
+:::
+::::
+
+::: notes
+~2 min. Introduce spatial autocorrelation conceptually, without Moran's I. Ask what an observed distribution is being compared against.
+:::
+
+---
+
+## FUNDAMENTAL GIS OPERATIONS {.section-slide background-image="../assets/branding/section_bg.png" background-size="cover" background-position="center"}
+
+---
+
+## Buffer and distance
+
+:::: {.columns}
+::: {.column width="52%"}
+**Buffer:** construct a zone within a specified distance of features.
+
+**Distance:** measure separation from features or locations.
+
+*Example:* Which archaeological sites lie within 500 m of mapped rivers?
+:::
+::: {.column width="48%"}
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: river buffer and archaeological site points" width="95%" .img-card}
+:::
+::::
+
+::: notes
+~2 min. Distances should be calculated with appropriate units and CRS. A buffer does not imply that people historically travelled in straight lines.
+:::
+
+---
+
+## Clip, intersect, and spatial join
+
+- **Clip:** retain the portion of data inside a study boundary.
+- **Intersect / overlay:** find the geographic overlap of layers.
+- **Spatial join:** attach attributes based on spatial relationships.
+
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: three-panel clip, intersect, spatial join diagram" fig-align="center" width="78%" .img-card}
+
+::: notes
+~3 min. Example: clip a soil map to the survey region, intersect settlement polygons with soil types, or attach geology attributes to site points. Mention that joins may create multiple matches.
+:::
+
+---
+
+## Working with raster values
+
+:::: {.columns}
+::: {.column width="50%"}
+- **Sample:** retrieve elevation at each site.
+- **Derive:** calculate slope from a DEM.
+- **Summarize:** mean elevation within a survey polygon (zonal statistics).
+- **Combine:** raster calculations or classifications.
+:::
+::: {.column width="50%"}
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: DEM and archaeological points or slope map" width="95%" .img-card}
+:::
+::::
+
+::: notes
+~2 min. Raster values are cell-based estimates. Elevation at a point inherits the DEM's resolution and measurement limitations.
+:::
+
+---
+
+## A simple analysis is already possible
+
+**Question:** Are recorded settlements associated with a particular soil type?
+
+1. Load **site locations** and **soil polygons**.
+2. Confirm their **CRSs**.
+3. **Spatially join** soil categories to sites.
+4. Count sites by category.
+5. Compare with the **area and survey effort** in each category.
+
+::: notes
+~2 min. Raw site counts are not enough: abundant soil types and better-surveyed areas will naturally contain more recorded sites. This is the bridge to inference.
+:::
+
+---
+
+## SCALE, TIME, AND UNCERTAINTY {.section-slide background-image="../assets/branding/section_bg.png" background-size="cover" background-position="center"}
+
+---
+
+## Resolution, precision, accuracy
+
+- **Resolution:** smallest spatial detail represented (e.g., 30 m cells).
+- **Precision:** fineness or repeatability of recorded measurements.
+- **Accuracy:** closeness to the actual position or value.
+
+::: {.callout-card}
+**Eight decimal places do not guarantee an accurately located archaeological site.**
+:::
+
+::: notes
+~2 min. Contrast precise-looking GPS coordinates with uncertain site location. A 30 m raster cannot resolve 2 m features; higher display zoom does not create new information.
+:::
+
+---
+
+## Scale changes the pattern
+
+:::: {.columns}
+::: {.column width="50%"}
+- Individual artefacts, sites, regions and continents answer different questions.
+- Aggregating observations can hide local variation.
+- Results may change with the size and shape of spatial units (**MAUP**).
+:::
+::: {.column width="50%"}
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: same point distribution aggregated to different grids" width="95%" .img-card}
+:::
+::::
+
+::: notes
+~2 min. Do not teach MAUP formally; show how a heat map or count per administrative district changes when the aggregation grid changes.
+:::
+
+---
+
+## Archaeological maps also have time
+
+- Features on the same map may **not have coexisted**.
+- Chronological assignments can be broad or uncertain.
+- Landscape features (rivers, shorelines, roads) **change through time**.
+- A spatial pattern without temporal control can be misleading.
+
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: time-sliced settlement maps" fig-align="center" width="70%" .img-card}
+
+::: notes
+~2 min. Explain the palimpsest problem. A GIS layer of all known sites is often a cumulative record, not a snapshot of a historical landscape.
+:::
+
+---
+
+## The archaeological observation process
+
+::: {.center-block}
+**Past activity → preservation → discovery → recording → GIS layer**
+:::
+
+- Preservation is spatially variable.
+- Surveys do not cover all areas equally.
+- Detection and classification are imperfect.
+
+::: {.callout-card}
+**A distribution of recorded sites is not necessarily a distribution of past activity.**
+:::
+
+::: notes
+~2 min. This is arguably the most important interpretive warning. Site absences may be absences of observation rather than evidence of no occupation.
+:::
+
+---
+
+## AN ARCHAEOLOGICAL WORKFLOW {.section-slide background-image="../assets/branding/section_bg.png" background-size="cover" background-position="center"}
+
+---
+
+## Example: settlements and waterways
+
+**Research question:** Were settlements preferentially located near waterways?
+
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: Angkor settlements, water network and landscape" fig-align="center" width="80%" .img-card}
+
+::: notes
+~2 min. Use an Angkor example or another landscape with reliable settlement and river data. Explain the question before any tools.
+:::
+
+---
+
+## From question to GIS operations
+
+1. Obtain **settlement locations**, **waterways**, and **study-area boundary**.
+2. Check **coordinates, CRSs, and attributes**.
+3. Calculate **distance to nearest waterway**.
+4. Compare site distances with **appropriate background locations**.
+5. Examine sensitivity to **chronology, survey coverage, and historic hydrology**.
+
+::: notes
+~3 min. A map or list of distances is a descriptive result. A preference claim requires comparison with where settlements could have been and could have been observed.
+:::
+
+---
+
+## Interpretation is not an automatic GIS output
+
+**Finding:** Many mapped sites are near rivers.
+
+**Does this mean rivers caused settlement locations?**
+
+- Are rivers common across the study region?
+- Were other locations surveyed?
+- Did these rivers exist during occupation?
+- Could elevation, soils, or transport networks explain the pattern?
+
+::: {.callout-card}
+**GIS can calculate a relationship; archaeology must justify its interpretation.**
+:::
+
+::: notes
+~2 min. Invite one or two student answers. The software does not choose a defensible null model or establish causation.
+:::
+
+---
+
+## The basic GIS workflow
+
+::: {.center-block}
+**Question → Data → Check / align → Analyse → Validate → Interpret → Communicate**
+:::
+
+![](../assets/placeholders/image.svg){fig-alt="PLACEHOLDER: GIS workflow schematic or QGIS screenshot" fig-align="center" width="75%" .img-card}
+
+::: notes
+~1 min. Recap the whole lecture as a workflow. Checking data and interpreting output are essential steps, not optional extras.
+:::
+
+---
+
+## What you will do in the practical
+
+- Open and inspect spatial **layers and attributes**.
+- Check the **coordinate reference system**.
+- Style a map to reveal a pattern.
+- Use a **buffer** or **spatial selection**.
+- Produce a simple **map and interpretation**.
+
+::: {.callout-card}
+**The objective is not to memorize buttons. It is to know what operation answers your question—and what its result means.**
+:::
+
+::: notes
+~1 min. Coordinate the exact list with the practical instructor and prepared dataset. Leave a moment for questions.
+:::

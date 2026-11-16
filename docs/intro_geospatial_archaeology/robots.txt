@@ -1,0 +1,1 @@
+Sitemap: https://teaching.wccarleton.org/intro_geospatial_archaeology/sitemap.xml

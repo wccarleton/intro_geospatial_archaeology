@@ -1,0 +1,57 @@
+# Course identity: scripts/new-course.ps1 fills in the slug and title placeholders.
+# The slug is the course's public path: https://teaching.wccarleton.org/intro_geospatial_archaeology/
+# Use lowercase letters, digits, and underscores; it must match the route in the
+# teaching_home repository and the course's folder in the teaching bucket.
+course-slug: intro_geospatial_archaeology
+
+project:
+  type: website
+  # The site is built into a folder named after the slug, so this course's own
+  # Cloudflare Pages site serves the same paths as teaching.wccarleton.org/intro_geospatial_archaeology/.
+  output-dir: docs/intro_geospatial_archaeology
+  render:
+    - index.qmd
+    - slides/*.qmd
+    - bibliography.qmd
+  resources:
+    - assets/branding/**
+    - assets/placeholders/**
+    - assets/fonts/**
+
+# Code in decks re-runs only when its source changes.
+execute:
+  freeze: auto
+
+bibliography: references.bib
+
+# Base for images written as assets:path/image.webp (this course's bucket folder).
+# A deck's front matter or the TALKS_ASSETS_BASE variable can override it.
+assets-base: "https://teaching-assets.wccarleton.org/intro_geospatial_archaeology"
+
+filters:
+  - filters/assets.lua
+  - filters/image-cards.lua
+  - quarto
+
+website:
+  site-url: https://teaching.wccarleton.org/intro_geospatial_archaeology/
+  title: "Introduction to Geospatial Archaeology"
+  navbar:
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Lectures"
+        menu:
+          - text: "1. Geospatial Archaeology and GIS"
+            href: slides/01-geospatial-archaeology-and-gis.qmd
+      - text: "Bibliography"
+        href: bibliography.qmd
+    right:
+      - text: "All courses"
+        href: https://teaching.wccarleton.org/
+
+format:
+  html:
+    theme: cosmo
+    toc: false
+    html-math-method: mathml

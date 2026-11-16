@@ -1,0 +1,4 @@
+# Keep search engines on teaching.wccarleton.org rather than this course's
+# *.pages.dev address. The teaching_home proxy removes this header.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex

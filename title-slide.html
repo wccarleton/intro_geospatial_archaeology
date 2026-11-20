@@ -4,6 +4,8 @@
   data-background-position="center">
 
   <h1 class="title">$title$</h1>
-  $if(subtitle)$<p class="subtitle">$subtitle$</p>$endif$
-  $if(author)$<p class="title-meta">$for(author)$$author$$sep$, $endfor$$if(date)$ | $date$$endif$</p>$endif$
+  <div class="title-details">
+    $if(subtitle)$<p class="subtitle">$subtitle$</p>$endif$
+    $if(author)$<p class="title-meta">$for(author)$$author$$sep$, $endfor$$if(date)$ | $date$$endif$</p>$endif$
+  </div>
 </section>

@@ -33,7 +33,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-4e1cd66b01b7b9cfb640bf8bcfcb616c.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-c65d1056554509d41d08df014b300220.css">
   <link rel="stylesheet" href="../assets/fonts/fonts.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -126,9 +126,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body class="quarto-light">
@@ -138,8 +135,10 @@
 <section class="title-slide center" data-background-image="../assets/branding/title_bg.png" data-background-size="cover" data-background-position="center">
 
   <h1 class="title">Geospatial Archaeology and GIS</h1>
-  <p class="subtitle">Spatial data, spatial thinking, and the foundations of archaeological GIS</p>
-  <p class="title-meta">W. Christopher Carleton | 2026-11-20</p>
+  <div class="title-details">
+    <p class="subtitle">Spatial data, spatial thinking, and the foundations of archaeological GIS</p>
+    <p class="title-meta">W. Christopher Carleton | 2026-11-20</p>
+  </div>
 </section>
 <section id="why-does-location-matter" class="slide level2">
 <h2>Why does location matter?</h2>
@@ -1375,36 +1374,18 @@
 <section id="the-basic-gis-workflow" class="slide level2">
 <h2>The basic GIS workflow</h2>
 <div class="center-block gis-workflow">
-<div class="cell" data-reveal="true" data-out-width="100%" data-layout-align="center">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "24px", "lineColor": "#718781", "edgeLabelBackground": "#ffffff"}, "flowchart": {"htmlLabels": false, "curve": "basis", "nodeSpacing": 35, "rankSpacing": 25, "padding": 40}}}%%
-flowchart LR
-    Q("01 · Question&lt;br/&gt;Define the problem")
-    D("02 · Data&lt;br/&gt;Gather evidence")
-    C("03 · Check &amp; align&lt;br/&gt;CRS · units · quality")
-    A("04 · Analyse&lt;br/&gt;Measure patterns")
-    V("05 · Validate&lt;br/&gt;Check the results")
-    I("06 · Interpret&lt;br/&gt;Explain in context")
-    M("07 · Communicate&lt;br/&gt;Map &amp; tell the story")
-
-    Q --&gt; D --&gt; C --&gt; A --&gt; V --&gt; I --&gt; M
-    V -. Revise inputs .-&gt; C
-
-    classDef endpoint fill:#006c66,color:#ffffff,stroke:#006c66,stroke-width:2px,rx:14,ry:14;
-    classDef process fill:#f0f5f3,color:#243e36,stroke:#b9cec7,stroke-width:1.5px,rx:14,ry:14;
-    classDef check fill:#e8f1f8,color:#204b6d,stroke:#8db2d1,stroke-width:1.5px,rx:14,ry:14;
-    class Q,M endpoint;
-    class D,A,I process;
-    class C,V check;
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
+<ol class="workflow-steps" role="list" aria-label="GIS workflow">
+  <li class="workflow-question workflow-endpoint"><strong>01 · Question</strong><span>Define the problem</span></li>
+  <li class="workflow-data"><strong>02 · Data</strong><span>Gather evidence</span></li>
+  <li class="workflow-align workflow-check"><strong>03 · Check &amp; align</strong><span>CRS · units · quality</span></li>
+  <li class="workflow-analyse"><strong>04 · Analyse</strong><span>Measure patterns</span></li>
+  <li class="workflow-validate workflow-check">
+    <strong>05 · Validate</strong><span>Check the results</span>
+    <span class="workflow-feedback" role="img" aria-label="Return to Check and align to revise inputs">Revise inputs</span>
+  </li>
+  <li class="workflow-interpret"><strong>06 · Interpret</strong><span>Explain in context</span></li>
+  <li class="workflow-communicate workflow-endpoint"><strong>07 · Communicate</strong><span>Map &amp; tell the story</span></li>
+</ol>
 </div>
 <div class="callout-card">
 <p><strong>The workflow is iterative: checking a result can send us back to the data.</strong></p>

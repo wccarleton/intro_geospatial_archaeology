@@ -888,29 +888,19 @@ This is a descriptive comparison, not a significance test or evidence that water
 ## The basic GIS workflow
 
 ::: {.center-block .gis-workflow}
-```{mermaid}
-%%| fig-align: center
-%%| out-width: 100%
-%%| fig-alt: "GIS workflow from question through data, checking and alignment, analysis, validation, interpretation, and communication, with a feedback loop from validation to checking inputs."
-%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "24px", "lineColor": "#718781", "edgeLabelBackground": "#ffffff"}, "flowchart": {"htmlLabels": false, "curve": "basis", "nodeSpacing": 35, "rankSpacing": 25, "padding": 40}}}%%
-flowchart LR
-    Q("01 · Question<br/>Define the problem")
-    D("02 · Data<br/>Gather evidence")
-    C("03 · Check & align<br/>CRS · units · quality")
-    A("04 · Analyse<br/>Measure patterns")
-    V("05 · Validate<br/>Check the results")
-    I("06 · Interpret<br/>Explain in context")
-    M("07 · Communicate<br/>Map & tell the story")
-
-    Q --> D --> C --> A --> V --> I --> M
-    V -. Revise inputs .-> C
-
-    classDef endpoint fill:#006c66,color:#ffffff,stroke:#006c66,stroke-width:2px,rx:14,ry:14;
-    classDef process fill:#f0f5f3,color:#243e36,stroke:#b9cec7,stroke-width:1.5px,rx:14,ry:14;
-    classDef check fill:#e8f1f8,color:#204b6d,stroke:#8db2d1,stroke-width:1.5px,rx:14,ry:14;
-    class Q,M endpoint;
-    class D,A,I process;
-    class C,V check;
+```{=html}
+<ol class="workflow-steps" role="list" aria-label="GIS workflow">
+  <li class="workflow-question workflow-endpoint"><strong>01 · Question</strong><span>Define the problem</span></li>
+  <li class="workflow-data"><strong>02 · Data</strong><span>Gather evidence</span></li>
+  <li class="workflow-align workflow-check"><strong>03 · Check &amp; align</strong><span>CRS · units · quality</span></li>
+  <li class="workflow-analyse"><strong>04 · Analyse</strong><span>Measure patterns</span></li>
+  <li class="workflow-validate workflow-check">
+    <strong>05 · Validate</strong><span>Check the results</span>
+    <span class="workflow-feedback" role="img" aria-label="Return to Check and align to revise inputs">Revise inputs</span>
+  </li>
+  <li class="workflow-interpret"><strong>06 · Interpret</strong><span>Explain in context</span></li>
+  <li class="workflow-communicate workflow-endpoint"><strong>07 · Communicate</strong><span>Map &amp; tell the story</span></li>
+</ol>
 ```
 :::
 
